@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.system.cb.mapper.CbSyntheticalMapper">
+    
+    <resultMap type="CbSynthetical" id="CbSyntheticalResult">
+        <result property="id"    column="id"    />
+        <result property="cbType"    column="cb_type"    />
+        <result property="project"    column="project"    />
+        <result property="cbYear"    column="cb_year"    />
+        <result property="hoggeryId"    column="hoggery_id"    />
+        <result property="hoggeryName"    column="hoggery_name"    />
+        <result property="avgOrTotal"    column="avg_or_total"    />
+        <result property="jan"    column="jan"    />
+        <result property="february"    column="february"    />
+        <result property="march"    column="march"    />
+        <result property="april"    column="april"    />
+        <result property="may"    column="may"    />
+        <result property="june"    column="june"    />
+        <result property="july"    column="july"    />
+        <result property="august"    column="august"    />
+        <result property="september"    column="september"    />
+        <result property="october"    column="october"    />
+        <result property="november"    column="november"    />
+        <result property="december"    column="december"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCbSyntheticalVo">
+        select id, cb_type, project, cb_year, hoggery_id, hoggery_name, avg_or_total, jan, february, march, april, may, june, july, august, september, october, november, december, create_by, create_time, update_by, update_time, remark from cb_synthetical
+    </sql>
+
+    <select id="selectCbSyntheticalList" parameterType="CbSynthetical" resultMap="CbSyntheticalResult">
+        <include refid="selectCbSyntheticalVo"/>
+        <where>  
+            <if test="cbType != null  and cbType != ''"> and cb_type = #{cbType}</if>
+            <if test="project != null  and project != ''"> and project = #{project}</if>
+            <if test="cbYear != null  and cbYear != ''"> and cb_year = #{cbYear}</if>
+            <if test="hoggeryId != null "> and hoggery_id = #{hoggeryId}</if>
+            <if test="hoggeryName != null  and hoggeryName != ''"> and hoggery_name like concat('%', #{hoggeryName}, '%')</if>
+            <if test="avgOrTotal != null "> and avg_or_total = #{avgOrTotal}</if>
+            <if test="jan != null "> and jan = #{jan}</if>
+            <if test="february != null "> and february = #{february}</if>
+            <if test="march != null "> and march = #{march}</if>
+            <if test="april != null "> and april = #{april}</if>
+            <if test="may != null "> and may = #{may}</if>
+            <if test="june != null "> and june = #{june}</if>
+            <if test="july != null "> and july = #{july}</if>
+            <if test="august != null "> and august = #{august}</if>
+            <if test="september != null "> and september = #{september}</if>
+            <if test="october != null "> and october = #{october}</if>
+            <if test="november != null "> and november = #{november}</if>
+            <if test="december != null "> and december = #{december}</if>
+        </where>
+    </select>
+    
+    <select id="selectCbSyntheticalById" parameterType="Long" resultMap="CbSyntheticalResult">
+        <include refid="selectCbSyntheticalVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCbSynthetical" parameterType="CbSynthetical" useGeneratedKeys="true" keyProperty="id">
+        insert into cb_synthetical
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cbType != null">cb_type,</if>
+            <if test="project != null">project,</if>
+            <if test="cbYear != null">cb_year,</if>
+            <if test="hoggeryId != null">hoggery_id,</if>
+            <if test="hoggeryName != null">hoggery_name,</if>
+            <if test="avgOrTotal != null">avg_or_total,</if>
+            <if test="jan != null">jan,</if>
+            <if test="february != null">february,</if>
+            <if test="march != null">march,</if>
+            <if test="april != null">april,</if>
+            <if test="may != null">may,</if>
+            <if test="june != null">june,</if>
+            <if test="july != null">july,</if>
+            <if test="august != null">august,</if>
+            <if test="september != null">september,</if>
+            <if test="october != null">october,</if>
+            <if test="november != null">november,</if>
+            <if test="december != null">december,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cbType != null">#{cbType},</if>
+            <if test="project != null">#{project},</if>
+            <if test="cbYear != null">#{cbYear},</if>
+            <if test="hoggeryId != null">#{hoggeryId},</if>
+            <if test="hoggeryName != null">#{hoggeryName},</if>
+            <if test="avgOrTotal != null">#{avgOrTotal},</if>
+            <if test="jan != null">#{jan},</if>
+            <if test="february != null">#{february},</if>
+            <if test="march != null">#{march},</if>
+            <if test="april != null">#{april},</if>
+            <if test="may != null">#{may},</if>
+            <if test="june != null">#{june},</if>
+            <if test="july != null">#{july},</if>
+            <if test="august != null">#{august},</if>
+            <if test="september != null">#{september},</if>
+            <if test="october != null">#{october},</if>
+            <if test="november != null">#{november},</if>
+            <if test="december != null">#{december},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCbSynthetical" parameterType="CbSynthetical">
+        update cb_synthetical
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cbType != null">cb_type = #{cbType},</if>
+            <if test="project != null">project = #{project},</if>
+            <if test="cbYear != null">cb_year = #{cbYear},</if>
+            <if test="hoggeryId != null">hoggery_id = #{hoggeryId},</if>
+            <if test="hoggeryName != null">hoggery_name = #{hoggeryName},</if>
+            <if test="avgOrTotal != null">avg_or_total = #{avgOrTotal},</if>
+            <if test="jan != null">jan = #{jan},</if>
+            <if test="february != null">february = #{february},</if>
+            <if test="march != null">march = #{march},</if>
+            <if test="april != null">april = #{april},</if>
+            <if test="may != null">may = #{may},</if>
+            <if test="june != null">june = #{june},</if>
+            <if test="july != null">july = #{july},</if>
+            <if test="august != null">august = #{august},</if>
+            <if test="september != null">september = #{september},</if>
+            <if test="october != null">october = #{october},</if>
+            <if test="november != null">november = #{november},</if>
+            <if test="december != null">december = #{december},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCbSyntheticalById" parameterType="Long">
+        delete from cb_synthetical where id = #{id}
+    </delete>
+
+    <delete id="deleteCbSyntheticalByIds" parameterType="String">
+        delete from cb_synthetical where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

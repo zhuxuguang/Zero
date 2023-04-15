@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.system.cb.mapper.CbBreedingStockMapper">
+
+    <resultMap type="CbBreedingStock" id="CbBreedingStockResult">
+        <result property="id"    column="id"    />
+        <result property="cbYear"    column="cb_year"    />
+        <result property="cbMonth"    column="cb_month"    />
+        <result property="businessDate"    column="business_date"    />
+        <result property="hoggeryId"    column="hoggery_id"    />
+        <result property="hoggeryName"    column="hoggery_name"    />
+        <result property="breedingSow"    column="breeding_sow"    />
+        <result property="stockBoar"    column="stock_boar"    />
+        <result property="backupPig"    column="backup_pig"    />
+        <result property="pigletFeeding"    column="piglet_feeding"    />
+        <result property="nurseryPig"    column="nursery_pig"    />
+        <result property="fatteningPig"    column="fattening_pig"    />
+        <result property="totalPig"    column="total_pig"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCbBreedingStockVo">
+        select id, cb_year, cb_month, business_date, hoggery_id, hoggery_name, breeding_sow, stock_boar, backup_pig, piglet_feeding, nursery_pig, fattening_pig, total_pig, create_by, create_time, update_by, update_time, remark from cb_breeding_stock
+    </sql>
+
+    <select id="selectCbBreedingStockList" parameterType="CbBreedingStock" resultMap="CbBreedingStockResult">
+        <include refid="selectCbBreedingStockVo"/>
+        <where>
+            <if test="cbYear != null  and cbYear != ''"> and cb_year = #{cbYear}</if>
+            <if test="cbMonth != null  and cbMonth != ''"> and cb_month = #{cbMonth}</if>
+            <if test="businessDate != null "> and business_date = #{businessDate}</if>
+            <if test="hoggeryId != null "> and hoggery_id = #{hoggeryId}</if>
+            <if test="hoggeryName != null  and hoggeryName != ''"> and hoggery_name like concat('%', #{hoggeryName}, '%')</if>
+            <if test="breedingSow != null "> and breeding_sow = #{breedingSow}</if>
+            <if test="stockBoar != null "> and stock_boar = #{stockBoar}</if>
+            <if test="backupPig != null "> and backup_pig = #{backupPig}</if>
+            <if test="pigletFeeding != null "> and piglet_feeding = #{pigletFeeding}</if>
+            <if test="nurseryPig != null "> and nursery_pig = #{nurseryPig}</if>
+            <if test="fatteningPig != null "> and fattening_pig = #{fatteningPig}</if>
+            <if test="totalPig != null "> and total_pig = #{totalPig}</if>
+        </where>
+    </select>
+
+    <select id="selectCbBreedingStockById" parameterType="Long" resultMap="CbBreedingStockResult">
+        <include refid="selectCbBreedingStockVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCbBreedingStock" parameterType="CbBreedingStock" useGeneratedKeys="true" keyProperty="id">
+        insert into cb_breeding_stock
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cbYear != null">cb_year,</if>
+            <if test="cbMonth != null">cb_month,</if>
+            <if test="businessDate != null">business_date,</if>
+            <if test="hoggeryId != null">hoggery_id,</if>
+            <if test="hoggeryName != null">hoggery_name,</if>
+            <if test="breedingSow != null">breeding_sow,</if>
+            <if test="stockBoar != null">stock_boar,</if>
+            <if test="backupPig != null">backup_pig,</if>
+            <if test="pigletFeeding != null">piglet_feeding,</if>
+            <if test="nurseryPig != null">nursery_pig,</if>
+            <if test="fatteningPig != null">fattening_pig,</if>
+            <if test="totalPig != null">total_pig,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cbYear != null">#{cbYear},</if>
+            <if test="cbMonth != null">#{cbMonth},</if>
+            <if test="businessDate != null">#{businessDate},</if>
+            <if test="hoggeryId != null">#{hoggeryId},</if>
+            <if test="hoggeryName != null">#{hoggeryName},</if>
+            <if test="breedingSow != null">#{breedingSow},</if>
+            <if test="stockBoar != null">#{stockBoar},</if>
+            <if test="backupPig != null">#{backupPig},</if>
+            <if test="pigletFeeding != null">#{pigletFeeding},</if>
+            <if test="nurseryPig != null">#{nurseryPig},</if>
+            <if test="fatteningPig != null">#{fatteningPig},</if>
+            <if test="totalPig != null">#{totalPig},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCbBreedingStock" parameterType="CbBreedingStock">
+        update cb_breeding_stock
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cbYear != null">cb_year = #{cbYear},</if>
+            <if test="cbMonth != null">cb_month = #{cbMonth},</if>
+            <if test="businessDate != null">business_date = #{businessDate},</if>
+            <if test="hoggeryId != null">hoggery_id = #{hoggeryId},</if>
+            <if test="hoggeryName != null">hoggery_name = #{hoggeryName},</if>
+            <if test="breedingSow != null">breeding_sow = #{breedingSow},</if>
+            <if test="stockBoar != null">stock_boar = #{stockBoar},</if>
+            <if test="backupPig != null">backup_pig = #{backupPig},</if>
+            <if test="pigletFeeding != null">piglet_feeding = #{pigletFeeding},</if>
+            <if test="nurseryPig != null">nursery_pig = #{nurseryPig},</if>
+            <if test="fatteningPig != null">fattening_pig = #{fatteningPig},</if>
+            <if test="totalPig != null">total_pig = #{totalPig},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCbBreedingStockById" parameterType="Long">
+        delete from cb_breeding_stock where id = #{id}
+    </delete>
+
+    <delete id="deleteCbBreedingStockByIds" parameterType="String">
+        delete from cb_breeding_stock where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

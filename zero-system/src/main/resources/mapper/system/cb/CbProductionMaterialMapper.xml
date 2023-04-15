@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.system.cb.mapper.CbProductionMaterialMapper">
+    
+    <resultMap type="CbProductionMaterial" id="CbProductionMaterialResult">
+        <result property="id"    column="id"    />
+        <result property="cbYear"    column="cb_year"    />
+        <result property="cbMonth"    column="cb_month"    />
+        <result property="documentCode"    column="document_code"    />
+        <result property="businessDate"    column="business_date"    />
+        <result property="fieldId"    column="field_id"    />
+        <result property="fieldName"    column="field_name"    />
+        <result property="documentStatus"    column="document_status"    />
+        <result property="materialCoding"    column="material_coding"    />
+        <result property="materialName"    column="material_name"    />
+        <result property="businessType"    column="business_type"    />
+        <result property="specifications"    column="specifications"    />
+        <result property="units"    column="units"    />
+        <result property="actualQuantityIssued"    column="actual_quantity_issued"    />
+        <result property="showInHouse"    column="show_in_house"    />
+        <result property="warehouse"    column="warehouse"    />
+        <result property="totalCost"    column="total_cost"    />
+        <result property="category"    column="category"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <association property="dept"    column="dept_id" javaType="SysDept" resultMap="deptResult" />
+    </resultMap>
+
+    <resultMap id="deptResult" type="SysDept">
+        <id     property="deptId"    column="dept_id"     />
+        <result property="parentId"  column="parent_id"   />
+        <result property="deptName"  column="dept_name"   />
+        <result property="ancestors" column="ancestors"   />
+        <result property="orderNum"  column="order_num"   />
+        <result property="leader"    column="leader"      />
+        <result property="status"    column="dept_status" />
+    </resultMap>
+
+    <sql id="selectCbProductionMaterialVo">
+        select id, cb_year, cb_month, document_code, business_date, field_id, field_name, document_status, material_coding, material_name, business_type, specifications, units, actual_quantity_issued, show_in_house, warehouse, total_cost, category, create_by, create_time, update_by, update_time, remark from cb_production_material
+    </sql>
+
+    <select id="selectCbProductionMaterialList" parameterType="CbProductionMaterial" resultMap="CbProductionMaterialResult">
+        SELECT
+        t1.id,
+        t1.cb_year,
+        t1.cb_month,
+        t1.document_code,
+        t1.business_date,
+        t1.field_id,
+        t2.dept_name AS field_name,
+        t1.document_status,
+        t1.material_coding,
+        t1.material_name,
+        t1.business_type,
+        t1.specifications,
+        t1.units,
+        t1.actual_quantity_issued,
+        t1.show_in_house,
+        t1.warehouse,
+        t1.total_cost,
+        t1.category,
+        t1.create_by,
+        t1.create_time,
+        t1.update_by,
+        t1.update_time,
+        t1.remark
+        FROM
+        cb_production_material t1
+        LEFT JOIN sys_dept t2 ON t1.field_id = t2.dept_id
+        <where>  
+            <if test="cbYear != null  and cbYear != ''"> and t1.cb_year = #{cbYear}</if>
+            <if test="cbMonth != null  and cbMonth != ''"> and t1.cb_month = #{cbMonth}</if>
+            <if test="documentCode != null  and documentCode != ''"> and t1.document_code = #{documentCode}</if>
+            <if test="businessDate != null "> and t1.business_date = #{businessDate}</if>
+            <if test="fieldId != null "> and t1.field_id = #{fieldId}</if>
+            <if test="fieldName != null  and fieldName != ''"> and t1.field_name like concat('%', #{fieldName}, '%')</if>
+            <if test="documentStatus != null  and documentStatus != ''"> and t1.document_status = #{documentStatus}</if>
+            <if test="materialCoding != null  and materialCoding != ''"> and t1.material_coding = #{materialCoding}</if>
+            <if test="materialName != null  and materialName != ''"> and t1.material_name like concat('%', #{materialName}, '%')</if>
+            <if test="businessType != null  and businessType != ''"> and t1.business_type = #{businessType}</if>
+            <if test="specifications != null  and specifications != ''"> and t1.specifications = #{specifications}</if>
+            <if test="units != null  and units != ''"> and t1.units = #{units}</if>
+            <if test="actualQuantityIssued != null "> and t1.actual_quantity_issued = #{actualQuantityIssued}</if>
+            <if test="showInHouse != null  and showInHouse != ''"> and t1.show_in_house = #{showInHouse}</if>
+            <if test="warehouse != null  and warehouse != ''"> and t1.warehouse = #{warehouse}</if>
+            <if test="totalCost != null "> and t1.total_cost = #{totalCost}</if>
+            <if test="category != null  and category != ''"> and t1.category = #{category}</if>
+        </where>
+        order by id desc
+    </select>
+    
+    <select id="selectCbProductionMaterialById" parameterType="Long" resultMap="CbProductionMaterialResult">
+        <include refid="selectCbProductionMaterialVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCbProductionMaterial" parameterType="CbProductionMaterial">
+        insert into cb_production_material
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="cbYear != null">cb_year,</if>
+            <if test="cbMonth != null">cb_month,</if>
+            <if test="documentCode != null">document_code,</if>
+            <if test="businessDate != null">business_date,</if>
+            <if test="fieldId != null">field_id,</if>
+            <if test="fieldName != null">field_name,</if>
+            <if test="documentStatus != null">document_status,</if>
+            <if test="materialCoding != null">material_coding,</if>
+            <if test="materialName != null">material_name,</if>
+            <if test="businessType != null">business_type,</if>
+            <if test="specifications != null">specifications,</if>
+            <if test="units != null">units,</if>
+            <if test="actualQuantityIssued != null">actual_quantity_issued,</if>
+            <if test="showInHouse != null">show_in_house,</if>
+            <if test="warehouse != null">warehouse,</if>
+            <if test="totalCost != null">total_cost,</if>
+            <if test="category != null">category,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="cbYear != null">#{cbYear},</if>
+            <if test="cbMonth != null">#{cbMonth},</if>
+            <if test="documentCode != null">#{documentCode},</if>
+            <if test="businessDate != null">#{businessDate},</if>
+            <if test="fieldId != null">#{fieldId},</if>
+            <if test="fieldName != null">#{fieldName},</if>
+            <if test="documentStatus != null">#{documentStatus},</if>
+            <if test="materialCoding != null">#{materialCoding},</if>
+            <if test="materialName != null">#{materialName},</if>
+            <if test="businessType != null">#{businessType},</if>
+            <if test="specifications != null">#{specifications},</if>
+            <if test="units != null">#{units},</if>
+            <if test="actualQuantityIssued != null">#{actualQuantityIssued},</if>
+            <if test="showInHouse != null">#{showInHouse},</if>
+            <if test="warehouse != null">#{warehouse},</if>
+            <if test="totalCost != null">#{totalCost},</if>
+            <if test="category != null">#{category},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <insert id="saveInfo" parameterType="CbProductionMaterial">
+        INSERT INTO cb_production_material (
+            cb_year,
+            cb_month,
+            document_code,
+            business_date,
+            document_status,
+            field_id,
+            field_name,
+            material_coding,
+            material_name,
+            business_type,
+            specifications,
+            units,
+            actual_quantity_issued,
+            show_in_house,
+            warehouse,
+            total_cost,
+            category,
+            create_by,
+            create_time,
+            update_by,
+            update_time,
+            remark
+        )
+        VALUES
+            (#{cbYear}, #{cbMonth}, #{documentCode}, #{businessDate}, #{documentStatus}, #{fieldId}, #{fieldName}, #{materialCoding}, #{materialName}, #{businessType}, #{specifications}, #{units}, #{actualQuantityIssued}, #{showInHouse}, #{warehouse}, #{totalCost}, #{category}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{remark})
+        </insert>
+
+    <update id="updateCbProductionMaterial" parameterType="CbProductionMaterial">
+        update cb_production_material
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cbYear != null">cb_year = #{cbYear},</if>
+            <if test="cbMonth != null">cb_month = #{cbMonth},</if>
+            <if test="documentCode != null">document_code = #{documentCode},</if>
+            <if test="businessDate != null">business_date = #{businessDate},</if>
+            <if test="fieldId != null">field_id = #{fieldId},</if>
+            <if test="fieldName != null">field_name = #{fieldName},</if>
+            <if test="documentStatus != null">document_status = #{documentStatus},</if>
+            <if test="materialCoding != null">material_coding = #{materialCoding},</if>
+            <if test="materialName != null">material_name = #{materialName},</if>
+            <if test="businessType != null">business_type = #{businessType},</if>
+            <if test="specifications != null">specifications = #{specifications},</if>
+            <if test="units != null">units = #{units},</if>
+            <if test="actualQuantityIssued != null">actual_quantity_issued = #{actualQuantityIssued},</if>
+            <if test="showInHouse != null">show_in_house = #{showInHouse},</if>
+            <if test="warehouse != null">warehouse = #{warehouse},</if>
+            <if test="totalCost != null">total_cost = #{totalCost},</if>
+            <if test="category != null">category = #{category},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCbProductionMaterialById" parameterType="Long">
+        delete from cb_production_material where id = #{id}
+    </delete>
+
+    <delete id="deleteCbProductionMaterialByIds" parameterType="String">
+        delete from cb_production_material where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

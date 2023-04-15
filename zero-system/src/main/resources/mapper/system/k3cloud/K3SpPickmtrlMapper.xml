@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.system.k3cloud.k3Material.mapper.K3SpPickmtrlMapper">
+    
+    <resultMap type="K3SpPickmtrl" id="K3SpPickmtrlResult">
+        <result property="id"    column="id"    />
+        <result property="fid"    column="fid"    />
+        <result property="fbillno"    column="fbillno"    />
+        <result property="fdate"    column="fdate"    />
+        <result property="fdocumentStatus"    column="fdocument_status"    />
+        <result property="fstockorgId"    column="fstockorg_id"    />
+        <result property="fstockorgName"    column="fstockorg_name"    />
+        <result property="fmaterialId"    column="fmaterial_id"    />
+        <result property="fmaterialName"    column="fmaterial_name"    />
+        <result property="ftransferbiztypeId"    column="ftransferbiztype_id"    />
+        <result property="fspecification"    column="fspecification"    />
+        <result property="funitid"    column="funitid"    />
+        <result property="factualqty"    column="factualqty"    />
+        <result property="fds"    column="fds"    />
+        <result property="fstockId"    column="fstock_id"    />
+        <result property="famount"    column="famount"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectK3SpPickmtrlVo">
+        select id, fid, fbillno, fdate, fdocument_status, fstockorg_id, fstockorg_name, fmaterial_id, fmaterial_name, ftransferbiztype_id, fspecification, funitid, factualqty, fds, fstock_id, famount, create_by, create_time, update_by, update_time, remark from k3_sp_pickmtrl
+    </sql>
+
+    <select id="selectK3SpPickmtrlList" parameterType="K3SpPickmtrl" resultMap="K3SpPickmtrlResult">
+        <include refid="selectK3SpPickmtrlVo"/>
+        <where>  
+            <if test="fid != null "> and fid = #{fid}</if>
+            <if test="fbillno != null "> and fbillno = #{fbillno}</if>
+            <if test="fdate != null "> and fdate = #{fdate}</if>
+            <if test="fdocumentStatus != null  and fdocumentStatus != ''"> and fdocument_status = #{fdocumentStatus}</if>
+            <if test="fstockorgId != null "> and fstockorg_id = #{fstockorgId}</if>
+            <if test="fstockorgName != null  and fstockorgName != ''"> and fstockorg_name like concat('%', #{fstockorgName}, '%')</if>
+            <if test="fmaterialId != null "> and fmaterial_id = #{fmaterialId}</if>
+            <if test="fmaterialName != null  and fmaterialName != ''"> and fmaterial_name like concat('%', #{fmaterialName}, '%')</if>
+            <if test="ftransferbiztypeId != null "> and ftransferbiztype_id = #{ftransferbiztypeId}</if>
+            <if test="fspecification != null  and fspecification != ''"> and fspecification = #{fspecification}</if>
+            <if test="funitid != null "> and funitid = #{funitid}</if>
+            <if test="factualqty != null "> and factualqty = #{factualqty}</if>
+            <if test="fds != null  and fds != ''"> and fds = #{fds}</if>
+            <if test="fstockId != null "> and fstock_id = #{fstockId}</if>
+            <if test="famount != null  and famount != ''"> and famount = #{famount}</if>
+        </where>
+        ORDER BY fdate DESC
+    </select>
+
+    <select id="selectKmK3SPList" parameterType="String" resultMap="K3SpPickmtrlResult">
+        select id, fid, fbillno, fdate, fdocument_status, fstockorg_id, fstockorg_name, fmaterial_id, fmaterial_name, ftransferbiztype_id, fspecification, funitid, factualqty, fds, fstock_id, famount, create_by, create_time, update_by, update_time, remark from k3_sp_pickmtrl
+        <where>
+            fstockorg_id IN
+            <foreach item="fstockorgId" collection="list" open="(" separator="," close=")">
+                #{fstockorgId}
+            </foreach>
+        </where>
+        ORDER BY fdate DESC
+    </select>
+    
+    <select id="selectK3SpPickmtrlById" parameterType="Long" resultMap="K3SpPickmtrlResult">
+        <include refid="selectK3SpPickmtrlVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertK3SpPickmtrl" parameterType="K3SpPickmtrl">
+        insert into k3_sp_pickmtrl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="fid != null">fid,</if>
+            <if test="fbillno != null">fbillno,</if>
+            <if test="fdate != null">fdate,</if>
+            <if test="fdocumentStatus != null">fdocument_status,</if>
+            <if test="fstockorgId != null">fstockorg_id,</if>
+            <if test="fstockorgName != null">fstockorg_name,</if>
+            <if test="fmaterialId != null">fmaterial_id,</if>
+            <if test="fmaterialName != null">fmaterial_name,</if>
+            <if test="ftransferbiztypeId != null">ftransferbiztype_id,</if>
+            <if test="fspecification != null">fspecification,</if>
+            <if test="funitid != null">funitid,</if>
+            <if test="factualqty != null">factualqty,</if>
+            <if test="fds != null">fds,</if>
+            <if test="fstockId != null">fstock_id,</if>
+            <if test="famount != null">famount,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="fid != null">#{fid},</if>
+            <if test="fbillno != null">#{fbillno},</if>
+            <if test="fdate != null">#{fdate},</if>
+            <if test="fdocumentStatus != null">#{fdocumentStatus},</if>
+            <if test="fstockorgId != null">#{fstockorgId},</if>
+            <if test="fstockorgName != null">#{fstockorgName},</if>
+            <if test="fmaterialId != null">#{fmaterialId},</if>
+            <if test="fmaterialName != null">#{fmaterialName},</if>
+            <if test="ftransferbiztypeId != null">#{ftransferbiztypeId},</if>
+            <if test="fspecification != null">#{fspecification},</if>
+            <if test="funitid != null">#{funitid},</if>
+            <if test="factualqty != null">#{factualqty},</if>
+            <if test="fds != null">#{fds},</if>
+            <if test="fstockId != null">#{fstockId},</if>
+            <if test="famount != null">#{famount},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <!--批量插入-->
+    <insert id="saveInfo"  parameterType="K3SpPickmtrl">
+        INSERT INTO k3_sp_pickmtrl (fid, fbillno, fdate, fdocument_status, fstockorg_id, fstockorg_name, fmaterial_id, fmaterial_name, ftransferbiztype_id,  fspecification, funitid, factualqty, fds, fstock_id, famount, create_by, create_time, update_by, update_time, remark) VALUES
+            (#{fid}, #{fbillno}, #{fdate}, #{fdocumentStatus}, #{fstockorgId}, #{fstockorgName}, #{fmaterialId}, #{fmaterialName}, #{ftransferbiztypeId}, #{fspecification}, #{funitid}, #{factualqty}, #{fds}, #{fstockId}, #{famount}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{remark})
+    </insert>
+
+    <update id="updateK3SpPickmtrl" parameterType="K3SpPickmtrl">
+        update k3_sp_pickmtrl
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fid != null">fid = #{fid},</if>
+            <if test="fbillno != null">fbillno = #{fbillno},</if>
+            <if test="fdate != null">fdate = #{fdate},</if>
+            <if test="fdocumentStatus != null">fdocument_status = #{fdocumentStatus},</if>
+            <if test="fstockorgId != null">fstockorg_id = #{fstockorgId},</if>
+            <if test="fstockorgName != null">fstockorg_name = #{fstockorgName},</if>
+            <if test="fmaterialId != null">fmaterial_id = #{fmaterialId},</if>
+            <if test="fmaterialName != null">fmaterial_name = #{fmaterialName},</if>
+            <if test="ftransferbiztypeId != null">ftransferbiztype_id = #{ftransferbiztypeId},</if>
+            <if test="fspecification != null">fspecification = #{fspecification},</if>
+            <if test="funitid != null">funitid = #{funitid},</if>
+            <if test="factualqty != null">factualqty = #{factualqty},</if>
+            <if test="fds != null">fds = #{fds},</if>
+            <if test="fstockId != null">fstock_id = #{fstockId},</if>
+            <if test="famount != null">famount = #{famount},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteK3SpPickmtrlById" parameterType="Long">
+        delete from k3_sp_pickmtrl where id = #{id}
+    </delete>
+
+    <delete id="deleteK3SpPickmtrlByIds" parameterType="String">
+        delete from k3_sp_pickmtrl where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="deleteK3SpPickmtrlAll">
+        delete from k3_sp_pickmtrl
+    </delete>
+</mapper>

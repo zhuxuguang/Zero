@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.system.cb.mapper.CbArtificialMapper">
+    
+    <resultMap type="CbArtificial" id="CbArtificialResult">
+        <result property="id"    column="id"    />
+        <result property="cbYear"    column="cb_year"    />
+        <result property="cbMonth"    column="cb_month"    />
+        <result property="companyId"    column="company_id"    />
+        <result property="companyName"    column="company_name"    />
+        <result property="hoggeryId"    column="hoggery_id"    />
+        <result property="hoggeryName"    column="hoggery_name"    />
+        <result property="costAttribute"    column="cost_attribute"    />
+        <result property="cosTypes"    column="cos_types"    />
+        <result property="population"    column="population"    />
+        <result property="amountWithdrawn"    column="amount_withdrawn"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCbArtificialVo">
+        select id, cb_year, cb_month, company_id, company_name, hoggery_id, hoggery_name, cost_attribute, cos_types, population, amount_withdrawn, create_by, create_time, update_by, update_time, remark from cb_artificial
+    </sql>
+
+    <select id="selectCbArtificialList" parameterType="CbArtificial" resultMap="CbArtificialResult">
+        <include refid="selectCbArtificialVo"/>
+        <where>  
+            <if test="cbYear != null  and cbYear != ''"> and cb_year = #{cbYear}</if>
+            <if test="cbMonth != null  and cbMonth != ''"> and cb_month = #{cbMonth}</if>
+            <if test="companyId != null "> and company_id = #{companyId}</if>
+            <if test="companyName != null  and companyName != ''"> and company_name like concat('%', #{companyName}, '%')</if>
+            <if test="hoggeryId != null "> and hoggery_id = #{hoggeryId}</if>
+            <if test="hoggeryName != null  and hoggeryName != ''"> and hoggery_name like concat('%', #{hoggeryName}, '%')</if>
+            <if test="costAttribute != null  and costAttribute != ''"> and cost_attribute = #{costAttribute}</if>
+            <if test="cosTypes != null  and cosTypes != ''"> and cos_types = #{cosTypes}</if>
+            <if test="population != null "> and population = #{population}</if>
+            <if test="amountWithdrawn != null "> and amount_withdrawn = #{amountWithdrawn}</if>
+        </where>
+    </select>
+    
+    <select id="selectCbArtificialById" parameterType="Long" resultMap="CbArtificialResult">
+        <include refid="selectCbArtificialVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCbArtificial" parameterType="CbArtificial" useGeneratedKeys="true" keyProperty="id">
+        insert into cb_artificial
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cbYear != null">cb_year,</if>
+            <if test="cbMonth != null">cb_month,</if>
+            <if test="companyId != null">company_id,</if>
+            <if test="companyName != null">company_name,</if>
+            <if test="hoggeryId != null">hoggery_id,</if>
+            <if test="hoggeryName != null">hoggery_name,</if>
+            <if test="costAttribute != null">cost_attribute,</if>
+            <if test="cosTypes != null">cos_types,</if>
+            <if test="population != null">population,</if>
+            <if test="amountWithdrawn != null">amount_withdrawn,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cbYear != null">#{cbYear},</if>
+            <if test="cbMonth != null">#{cbMonth},</if>
+            <if test="companyId != null">#{companyId},</if>
+            <if test="companyName != null">#{companyName},</if>
+            <if test="hoggeryId != null">#{hoggeryId},</if>
+            <if test="hoggeryName != null">#{hoggeryName},</if>
+            <if test="costAttribute != null">#{costAttribute},</if>
+            <if test="cosTypes != null">#{cosTypes},</if>
+            <if test="population != null">#{population},</if>
+            <if test="amountWithdrawn != null">#{amountWithdrawn},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCbArtificial" parameterType="CbArtificial">
+        update cb_artificial
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cbYear != null">cb_year = #{cbYear},</if>
+            <if test="cbMonth != null">cb_month = #{cbMonth},</if>
+            <if test="companyId != null">company_id = #{companyId},</if>
+            <if test="companyName != null">company_name = #{companyName},</if>
+            <if test="hoggeryId != null">hoggery_id = #{hoggeryId},</if>
+            <if test="hoggeryName != null">hoggery_name = #{hoggeryName},</if>
+            <if test="costAttribute != null">cost_attribute = #{costAttribute},</if>
+            <if test="cosTypes != null">cos_types = #{cosTypes},</if>
+            <if test="population != null">population = #{population},</if>
+            <if test="amountWithdrawn != null">amount_withdrawn = #{amountWithdrawn},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCbArtificialById" parameterType="Long">
+        delete from cb_artificial where id = #{id}
+    </delete>
+
+    <delete id="deleteCbArtificialByIds" parameterType="String">
+        delete from cb_artificial where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

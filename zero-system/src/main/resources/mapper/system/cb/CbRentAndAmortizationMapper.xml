@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.system.cb.mapper.CbRentAndAmortizationMapper">
+
+    <resultMap type="CbRentAndAmortization" id="CbRentAndAmortizationResult">
+        <result property="id"    column="id"    />
+        <result property="riId"    column="ri_id"    />
+        <result property="cbYear"    column="cb_year"    />
+        <result property="cbMonth"    column="cb_month"    />
+        <result property="businessDate"    column="business_date"    />
+        <result property="assetName"    column="asset_name"    />
+        <result property="hoggeryId"    column="hoggery_id"    />
+        <result property="hoggeryName"    column="hoggery_name"    />
+        <result property="companyId"    column="company_id"    />
+        <result property="companyName"    column="company_name"    />
+        <result property="costTypes"    column="cost_types"    />
+        <result property="initialAssetValue"    column="initial_asset_value"    />
+        <result property="amortizeMonths"    column="amortize_months"    />
+        <result property="amortizeStartMonth"    column="amortize_start_month"    />
+        <result property="amortizeEndMonth"    column="amortize_end_month"    />
+        <result property="instantAmortizedMoney"    column="instant_amortized_money"    />
+        <result property="alreadyAmortizedMonths"    column="already_amortized_months"    />
+        <result property="alreadyAmortizedMoney"    column="already_amortized_money"    />
+        <result property="dimensionOfAccounting"    column="dimension_of_accounting"    />
+        <result property="balance"    column="balance"    />
+        <result property="documentStatus"    column="document_status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remake"    column="remake"    />
+    </resultMap>
+
+    <sql id="selectCbRentAndAmortizationVo">
+        select id, ri_id, cb_year, cb_month, business_date, asset_name, hoggery_id, hoggery_name, company_id, company_name, cost_types, initial_asset_value, amortize_months, amortize_start_month, amortize_end_month, instant_amortized_money, already_amortized_months, already_amortized_money, dimension_of_accounting, balance, document_status, create_by, create_time, update_by, update_time, remake from cb_rent_and_amortization
+    </sql>
+
+    <select id="selectCbRentAndAmortizationList" parameterType="CbRentAndAmortization" resultMap="CbRentAndAmortizationResult">
+        <include refid="selectCbRentAndAmortizationVo"/>
+        <where>
+            <if test="riId != null "> and ri_id = #{riId}</if>
+            <if test="cbYear != null  and cbYear != ''"> and cb_year = #{cbYear}</if>
+            <if test="cbMonth != null  and cbMonth != ''"> and cb_month = #{cbMonth}</if>
+            <if test="businessDate != null "> and business_date = #{businessDate}</if>
+            <if test="assetName != null  and assetName != ''"> and asset_name like concat('%', #{assetName}, '%')</if>
+            <if test="hoggeryId != null "> and hoggery_id = #{hoggeryId}</if>
+            <if test="hoggeryName != null  and hoggeryName != ''"> and hoggery_name like concat('%', #{hoggeryName}, '%')</if>
+            <if test="companyId != null "> and company_id = #{companyId}</if>
+            <if test="companyName != null  and companyName != ''"> and company_name like concat('%', #{companyName}, '%')</if>
+            <if test="costTypes != null  and costTypes != ''"> and cost_types = #{costTypes}</if>
+            <if test="initialAssetValue != null "> and initial_asset_value = #{initialAssetValue}</if>
+            <if test="amortizeMonths != null  and amortizeMonths != ''"> and amortize_months = #{amortizeMonths}</if>
+            <if test="amortizeStartMonth != null "> and amortize_start_month = #{amortizeStartMonth}</if>
+            <if test="amortizeEndMonth != null "> and amortize_end_month = #{amortizeEndMonth}</if>
+            <if test="instantAmortizedMoney != null "> and instant_amortized_money = #{instantAmortizedMoney}</if>
+            <if test="alreadyAmortizedMonths != null  and alreadyAmortizedMonths != ''"> and already_amortized_months = #{alreadyAmortizedMonths}</if>
+            <if test="alreadyAmortizedMoney != null "> and already_amortized_money = #{alreadyAmortizedMoney}</if>
+            <if test="dimensionOfAccounting != null  and dimensionOfAccounting != ''"> and dimension_of_accounting = #{dimensionOfAccounting}</if>
+            <if test="balance != null "> and balance = #{balance}</if>
+            <if test="documentStatus != null  and documentStatus != ''"> and document_status = #{documentStatus}</if>
+            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="remake != null  and remake != ''"> and remake = #{remake}</if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectCbRentAndAmortizationById" parameterType="Long" resultMap="CbRentAndAmortizationResult">
+        <include refid="selectCbRentAndAmortizationVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCbRentAndAmortization" parameterType="CbRentAndAmortization">
+        insert into cb_rent_and_amortization
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="riId != null">ri_id,</if>
+            <if test="cbYear != null">cb_year,</if>
+            <if test="cbMonth != null">cb_month,</if>
+            <if test="businessDate != null">business_date,</if>
+            <if test="assetName != null">asset_name,</if>
+            <if test="hoggeryId != null">hoggery_id,</if>
+            <if test="hoggeryName != null">hoggery_name,</if>
+            <if test="companyId != null">company_id,</if>
+            <if test="companyName != null">company_name,</if>
+            <if test="costTypes != null">cost_types,</if>
+            <if test="initialAssetValue != null">initial_asset_value,</if>
+            <if test="amortizeMonths != null">amortize_months,</if>
+            <if test="amortizeStartMonth != null">amortize_start_month,</if>
+            <if test="amortizeEndMonth != null">amortize_end_month,</if>
+            <if test="instantAmortizedMoney != null">instant_amortized_money,</if>
+            <if test="alreadyAmortizedMonths != null">already_amortized_months,</if>
+            <if test="alreadyAmortizedMoney != null">already_amortized_money,</if>
+            <if test="dimensionOfAccounting != null">dimension_of_accounting,</if>
+            <if test="balance != null">balance,</if>
+            <if test="documentStatus != null">document_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remake != null">remake,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="riId != null">#{riId},</if>
+            <if test="cbYear != null">#{cbYear},</if>
+            <if test="cbMonth != null">#{cbMonth},</if>
+            <if test="businessDate != null">#{businessDate},</if>
+            <if test="assetName != null">#{assetName},</if>
+            <if test="hoggeryId != null">#{hoggeryId},</if>
+            <if test="hoggeryName != null">#{hoggeryName},</if>
+            <if test="companyId != null">#{companyId},</if>
+            <if test="companyName != null">#{companyName},</if>
+            <if test="costTypes != null">#{costTypes},</if>
+            <if test="initialAssetValue != null">#{initialAssetValue},</if>
+            <if test="amortizeMonths != null">#{amortizeMonths},</if>
+            <if test="amortizeStartMonth != null">#{amortizeStartMonth},</if>
+            <if test="amortizeEndMonth != null">#{amortizeEndMonth},</if>
+            <if test="instantAmortizedMoney != null">#{instantAmortizedMoney},</if>
+            <if test="alreadyAmortizedMonths != null">#{alreadyAmortizedMonths},</if>
+            <if test="alreadyAmortizedMoney != null">#{alreadyAmortizedMoney},</if>
+            <if test="dimensionOfAccounting != null">#{dimensionOfAccounting},</if>
+            <if test="balance != null">#{balance},</if>
+            <if test="documentStatus != null">#{documentStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remake != null">#{remake},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCbRentAndAmortization" parameterType="CbRentAndAmortization">
+        update cb_rent_and_amortization
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="riId != null">ri_id = #{riId},</if>
+            <if test="cbYear != null">cb_year = #{cbYear},</if>
+            <if test="cbMonth != null">cb_month = #{cbMonth},</if>
+            <if test="businessDate != null">business_date = #{businessDate},</if>
+            <if test="assetName != null">asset_name = #{assetName},</if>
+            <if test="hoggeryId != null">hoggery_id = #{hoggeryId},</if>
+            <if test="hoggeryName != null">hoggery_name = #{hoggeryName},</if>
+            <if test="companyId != null">company_id = #{companyId},</if>
+            <if test="companyName != null">company_name = #{companyName},</if>
+            <if test="costTypes != null">cost_types = #{costTypes},</if>
+            <if test="initialAssetValue != null">initial_asset_value = #{initialAssetValue},</if>
+            <if test="amortizeMonths != null">amortize_months = #{amortizeMonths},</if>
+            <if test="amortizeStartMonth != null">amortize_start_month = #{amortizeStartMonth},</if>
+            <if test="amortizeEndMonth != null">amortize_end_month = #{amortizeEndMonth},</if>
+            <if test="instantAmortizedMoney != null">instant_amortized_money = #{instantAmortizedMoney},</if>
+            <if test="alreadyAmortizedMonths != null">already_amortized_months = #{alreadyAmortizedMonths},</if>
+            <if test="alreadyAmortizedMoney != null">already_amortized_money = #{alreadyAmortizedMoney},</if>
+            <if test="dimensionOfAccounting != null">dimension_of_accounting = #{dimensionOfAccounting},</if>
+            <if test="balance != null">balance = #{balance},</if>
+            <if test="documentStatus != null">document_status = #{documentStatus},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remake != null">remake = #{remake},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCbRentAndAmortizationById" parameterType="Long">
+        delete from cb_rent_and_amortization where id = #{id}
+    </delete>
+
+    <delete id="deleteCbRentAndAmortizationByIds" parameterType="String">
+        delete from cb_rent_and_amortization where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteCbRentAndAmortizationByRiId" parameterType="Long">
+        delete from cb_rent_and_amortization where ri_id = #{id}
+    </delete>
+</mapper>

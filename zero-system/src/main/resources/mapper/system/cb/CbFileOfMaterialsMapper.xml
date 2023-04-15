@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.system.cb.mapper.CbFileOfMaterialsMapper">
+    
+    <resultMap type="CbFileOfMaterials" id="CbFileOfMaterialsResult">
+        <result property="id"    column="id"    />
+        <result property="creatingAnOrganizationId"    column="creating_an_organization_id"    />
+        <result property="creatingAnOrganizationName"    column="creating_an_organization_name"    />
+        <result property="organizationOfUseId"    column="organization_of_use_id"    />
+        <result property="organizationOfUseName"    column="organization_of_use_name"    />
+        <result property="materialName"    column="material_name"    />
+        <result property="materialCoding"    column="material_coding"    />
+        <result property="specifications"    column="specifications"    />
+        <result property="groupingOfMaterials"    column="grouping_of_materials"    />
+        <result property="groupingOfMaterialsCoding"    column="grouping_of_materials_coding"    />
+        <result property="dataState"    column="data_state"    />
+        <result property="category"    column="category"    />
+        <result property="propertiesOfMaterials"    column="properties_of_materials"    />
+        <result property="units"    column="units"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCbFileOfMaterialsVo">
+        select id, creating_an_organization_id, creating_an_organization_name, organization_of_use_id, organization_of_use_name, material_name, material_coding, specifications, grouping_of_materials, grouping_of_materials_coding, data_state, category, properties_of_materials, units, create_by, create_time, update_by, update_time, remark from cb_file_of_materials
+    </sql>
+
+    <select id="selectCbFileOfMaterialsList" parameterType="CbFileOfMaterials" resultMap="CbFileOfMaterialsResult">
+        <include refid="selectCbFileOfMaterialsVo"/>
+        <where>  
+            <if test="creatingAnOrganizationId != null "> and creating_an_organization_id = #{creatingAnOrganizationId}</if>
+            <if test="creatingAnOrganizationName != null  and creatingAnOrganizationName != ''"> and creating_an_organization_name like concat('%', #{creatingAnOrganizationName}, '%')</if>
+            <if test="organizationOfUseId != null "> and organization_of_use_id = #{organizationOfUseId}</if>
+            <if test="organizationOfUseName != null  and organizationOfUseName != ''"> and organization_of_use_name like concat('%', #{organizationOfUseName}, '%')</if>
+            <if test="materialName != null  and materialName != ''"> and material_name like concat('%', #{materialName}, '%')</if>
+            <if test="materialCoding != null  and materialCoding != ''"> and material_coding = #{materialCoding}</if>
+            <if test="specifications != null  and specifications != ''"> and specifications = #{specifications}</if>
+            <if test="groupingOfMaterials != null  and groupingOfMaterials != ''"> and grouping_of_materials = #{groupingOfMaterials}</if>
+            <if test="groupingOfMaterialsCoding != null  and groupingOfMaterialsCoding != ''"> and grouping_of_materials_coding = #{groupingOfMaterialsCoding}</if>
+            <if test="dataState != null  and dataState != ''"> and data_state = #{dataState}</if>
+            <if test="category != null  and category != ''"> and category = #{category}</if>
+            <if test="propertiesOfMaterials != null  and propertiesOfMaterials != ''"> and properties_of_materials = #{propertiesOfMaterials}</if>
+            <if test="units != null  and units != ''"> and units = #{units}</if>
+            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="updateBy != null  and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null "> and update_time = #{updateTime}</if>
+            <if test="remark != null  and remark != ''"> and remark = #{remark}</if>
+        </where>
+    </select>
+    
+    <select id="selectCbFileOfMaterialsById" parameterType="Long" resultMap="CbFileOfMaterialsResult">
+        <include refid="selectCbFileOfMaterialsVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectCbFileOfMaterialsByMaterialCoding" resultType="com.zero.system.cb.domain.CbFileOfMaterials">
+        <include refid="selectCbFileOfMaterialsVo"/>
+        where material_coding = #{materialCoding}
+    </select>
+
+    <insert id="insertCbFileOfMaterials" parameterType="CbFileOfMaterials" useGeneratedKeys="true" keyProperty="id">
+        insert into cb_file_of_materials
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="creatingAnOrganizationId != null">creating_an_organization_id,</if>
+            <if test="creatingAnOrganizationName != null">creating_an_organization_name,</if>
+            <if test="organizationOfUseId != null">organization_of_use_id,</if>
+            <if test="organizationOfUseName != null">organization_of_use_name,</if>
+            <if test="materialName != null">material_name,</if>
+            <if test="materialCoding != null">material_coding,</if>
+            <if test="specifications != null">specifications,</if>
+            <if test="groupingOfMaterials != null">grouping_of_materials,</if>
+            <if test="groupingOfMaterialsCoding != null">grouping_of_materials_coding,</if>
+            <if test="dataState != null">data_state,</if>
+            <if test="category != null">category,</if>
+            <if test="propertiesOfMaterials != null">properties_of_materials,</if>
+            <if test="units != null">units,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="creatingAnOrganizationId != null">#{creatingAnOrganizationId},</if>
+            <if test="creatingAnOrganizationName != null">#{creatingAnOrganizationName},</if>
+            <if test="organizationOfUseId != null">#{organizationOfUseId},</if>
+            <if test="organizationOfUseName != null">#{organizationOfUseName},</if>
+            <if test="materialName != null">#{materialName},</if>
+            <if test="materialCoding != null">#{materialCoding},</if>
+            <if test="specifications != null">#{specifications},</if>
+            <if test="groupingOfMaterials != null">#{groupingOfMaterials},</if>
+            <if test="groupingOfMaterialsCoding != null">#{groupingOfMaterialsCoding},</if>
+            <if test="dataState != null">#{dataState},</if>
+            <if test="category != null">#{category},</if>
+            <if test="propertiesOfMaterials != null">#{propertiesOfMaterials},</if>
+            <if test="units != null">#{units},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCbFileOfMaterials" parameterType="CbFileOfMaterials">
+        update cb_file_of_materials
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="creatingAnOrganizationId != null">creating_an_organization_id = #{creatingAnOrganizationId},</if>
+            <if test="creatingAnOrganizationName != null">creating_an_organization_name = #{creatingAnOrganizationName},</if>
+            <if test="organizationOfUseId != null">organization_of_use_id = #{organizationOfUseId},</if>
+            <if test="organizationOfUseName != null">organization_of_use_name = #{organizationOfUseName},</if>
+            <if test="materialName != null">material_name = #{materialName},</if>
+            <if test="materialCoding != null">material_coding = #{materialCoding},</if>
+            <if test="specifications != null">specifications = #{specifications},</if>
+            <if test="groupingOfMaterials != null">grouping_of_materials = #{groupingOfMaterials},</if>
+            <if test="groupingOfMaterialsCoding != null">grouping_of_materials_coding = #{groupingOfMaterialsCoding},</if>
+            <if test="dataState != null">data_state = #{dataState},</if>
+            <if test="category != null">category = #{category},</if>
+            <if test="propertiesOfMaterials != null">properties_of_materials = #{propertiesOfMaterials},</if>
+            <if test="units != null">units = #{units},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCbFileOfMaterialsById" parameterType="Long">
+        delete from cb_file_of_materials where id = #{id}
+    </delete>
+
+    <delete id="deleteCbFileOfMaterialsByIds" parameterType="String">
+        delete from cb_file_of_materials where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

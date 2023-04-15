@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.system.salesBidding.mapper.XsjjOrderMapper">
+    
+    <resultMap type="XsjjOrder" id="XsjjOrderResult">
+        <result property="id"    column="id"    />
+        <result property="orderSn"    column="order_sn"    />
+        <result property="orderStatus"    column="order_status"    />
+        <result property="actualPrice"    column="actual_price"    />
+        <result property="vehicleNumber"    column="vehicle_number"    />
+        <result property="headNumber"    column="head_number"    />
+        <result property="integralprice"    column="integralPrice"    />
+        <result property="freightprice"    column="freightPrice"    />
+        <result property="orderPrice"    column="order_price"    />
+        <result property="addTime"    column="add_time"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="userAvatar"    column="user_avatar"    />
+        <result property="consignee"    column="consignee"    />
+        <result property="address"    column="address"    />
+        <result property="mobile"    column="mobile"    />
+        <result property="message"    column="message"    />
+        <result property="goodsNamev"    column="goods_namev"    />
+        <result property="goodsSnv"    column="goods_snv"    />
+        <result property="countStatus"    column="count_status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectXsjjOrderVo">
+        select id, order_sn, order_status, actual_price, vehicle_number, head_number, integralPrice, freightPrice, order_price, add_time, user_id, user_name, user_avatar, consignee, address, mobile, message, goods_namev, goods_snv, count_status, create_by, create_time, update_by, update_time, remark from xsjj_order
+    </sql>
+
+    <select id="selectXsjjOrderList" parameterType="XsjjOrder" resultMap="XsjjOrderResult">
+        <include refid="selectXsjjOrderVo"/>
+        <where>  
+            <if test="orderSn != null  and orderSn != ''"> and order_sn = #{orderSn}</if>
+            <if test="orderStatus != null "> and order_status = #{orderStatus}</if>
+            <if test="actualPrice != null "> and actual_price = #{actualPrice}</if>
+            <if test="vehicleNumber != null "> and vehicle_number = #{vehicleNumber}</if>
+            <if test="headNumber != null "> and head_number = #{headNumber}</if>
+            <if test="integralprice != null "> and integralPrice = #{integralprice}</if>
+            <if test="freightprice != null "> and freightPrice = #{freightprice}</if>
+            <if test="orderPrice != null "> and order_price = #{orderPrice}</if>
+            <if test="addTime != null "> and add_time = #{addTime}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="userAvatar != null  and userAvatar != ''"> and user_avatar = #{userAvatar}</if>
+            <if test="consignee != null  and consignee != ''"> and consignee = #{consignee}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="mobile != null  and mobile != ''"> and mobile = #{mobile}</if>
+            <if test="message != null  and message != ''"> and message = #{message}</if>
+            <if test="goodsNamev != null  and goodsNamev != ''"> and goods_namev = #{goodsNamev}</if>
+            <if test="goodsSnv != null  and goodsSnv != ''"> and goods_snv = #{goodsSnv}</if>
+            <if test="countStatus != null  and countStatus != ''"> and count_status = #{countStatus}</if>
+            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="updateBy != null  and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null "> and update_time = #{updateTime}</if>
+        </where>
+        order by add_time desc
+    </select>
+    
+    <select id="selectXsjjOrderById" parameterType="Long" resultMap="XsjjOrderResult">
+        <include refid="selectXsjjOrderVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="queryMaxAddTime" parameterType="XsjjOrder" resultMap="XsjjOrderResult">
+        select * from xsjj_order where add_time = (SELECT MAX(add_time) FROM `xsjj_order`)
+    </select>
+
+    <insert id="insertXsjjOrder" parameterType="XsjjOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into xsjj_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderSn != null and orderSn != ''">order_sn,</if>
+            <if test="orderStatus != null">order_status,</if>
+            <if test="actualPrice != null">actual_price,</if>
+            <if test="vehicleNumber != null">vehicle_number,</if>
+            <if test="headNumber != null">head_number,</if>
+            <if test="integralprice != null">integralPrice,</if>
+            <if test="freightprice != null">freightPrice,</if>
+            <if test="orderPrice != null">order_price,</if>
+            <if test="addTime != null">add_time,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="userAvatar != null">user_avatar,</if>
+            <if test="consignee != null and consignee != ''">consignee,</if>
+            <if test="address != null and address != ''">address,</if>
+            <if test="mobile != null and mobile != ''">mobile,</if>
+            <if test="message != null and message != ''">message,</if>
+            <if test="goodsNamev != null and goodsNamev != ''">goods_namev,</if>
+            <if test="goodsSnv != null and goodsSnv != ''">goods_snv,</if>
+            <if test="countStatus != null">count_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderSn != null and orderSn != ''">#{orderSn},</if>
+            <if test="orderStatus != null">#{orderStatus},</if>
+            <if test="actualPrice != null">#{actualPrice},</if>
+            <if test="vehicleNumber != null">#{vehicleNumber},</if>
+            <if test="headNumber != null">#{headNumber},</if>
+            <if test="integralprice != null">#{integralprice},</if>
+            <if test="freightprice != null">#{freightprice},</if>
+            <if test="orderPrice != null">#{orderPrice},</if>
+            <if test="addTime != null">#{addTime},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="userAvatar != null">#{userAvatar},</if>
+            <if test="consignee != null and consignee != ''">#{consignee},</if>
+            <if test="address != null and address != ''">#{address},</if>
+            <if test="mobile != null and mobile != ''">#{mobile},</if>
+            <if test="message != null and message != ''">#{message},</if>
+            <if test="goodsNamev != null and goodsNamev != ''">#{goodsNamev},</if>
+            <if test="goodsSnv != null and goodsSnv != ''">#{goodsSnv},</if>
+            <if test="countStatus != null">#{countStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateXsjjOrder" parameterType="XsjjOrder">
+        update xsjj_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderSn != null and orderSn != ''">order_sn = #{orderSn},</if>
+            <if test="orderStatus != null">order_status = #{orderStatus},</if>
+            <if test="actualPrice != null">actual_price = #{actualPrice},</if>
+            <if test="vehicleNumber != null">vehicle_number = #{vehicleNumber},</if>
+            <if test="headNumber != null">head_number = #{headNumber},</if>
+            <if test="integralprice != null">integralPrice = #{integralprice},</if>
+            <if test="freightprice != null">freightPrice = #{freightprice},</if>
+            <if test="orderPrice != null">order_price = #{orderPrice},</if>
+            <if test="addTime != null">add_time = #{addTime},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="userAvatar != null">user_avatar = #{userAvatar},</if>
+            <if test="consignee != null and consignee != ''">consignee = #{consignee},</if>
+            <if test="address != null and address != ''">address = #{address},</if>
+            <if test="mobile != null and mobile != ''">mobile = #{mobile},</if>
+            <if test="message != null and message != ''">message = #{message},</if>
+            <if test="goodsNamev != null and goodsNamev != ''">goods_namev = #{goodsNamev},</if>
+            <if test="goodsSnv != null and goodsSnv != ''">goods_snv = #{goodsSnv},</if>
+            <if test="countStatus != null">count_status = #{countStatus},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteXsjjOrderById" parameterType="Long">
+        delete from xsjj_order where id = #{id}
+    </delete>
+
+    <delete id="deleteXsjjOrderByIds" parameterType="String">
+        delete from xsjj_order where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteAllXsjjOrder">
+        delete from xsjj_order
+    </delete>
+</mapper>

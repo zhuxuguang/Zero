@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.system.cb.mapper.CbExpenseDetailMapper">
+
+    <resultMap type="CbExpenseDetail" id="CbExpenseDetailResult">
+        <result property="id"    column="id"    />
+        <result property="cbYear"    column="cb_year"    />
+        <result property="cbMonth"    column="cb_month"    />
+        <result property="documentCode"    column="document_code"    />
+        <result property="cause"    column="cause"    />
+        <result property="businessDate"    column="business_date"    />
+        <result property="petitioner"    column="petitioner"    />
+        <result property="petitionerDepartmentId"    column="petitioner_department_id"    />
+        <result property="petitionerDepartmentName"    column="petitioner_department_name"    />
+        <result property="petitionerOrganizationId"    column="petitioner_organization_id"    />
+        <result property="petitionerOrganizationName"    column="petitioner_organization_name"    />
+        <result property="typeOfTraffic"    column="type_of_traffic"    />
+        <result property="reimburseAmountSummary"    column="reimburse_amount_summary"    />
+        <result property="expenseItem"    column="expense_item"    />
+        <result property="tefundOfPaymentCollect"    column="tefund_of_payment_collect"    />
+        <result property="documentStatus"    column="document_status"    />
+        <result property="costBearingOrganizationId"    column="cost_bearing_organization_id"    />
+        <result property="costBearingOrganization"    column="cost_bearing_organization"    />
+        <result property="auditor"    column="auditor"    />
+        <result property="amountPaid"    column="amount_paid"    />
+        <result property="amountRefunded"    column="amount_refunded"    />
+        <result property="founder"    column="founder"    />
+        <result property="categoriesOfExpenses"    column="categories_of_expenses"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCbExpenseDetailVo">
+        select id, cb_year, cb_month, document_code, cause, business_date, petitioner, petitioner_department_id, petitioner_department_name, petitioner_organization_id, petitioner_organization_name, type_of_traffic, reimburse_amount_summary, expense_item, tefund_of_payment_collect, document_status, cost_bearing_organization_id, cost_bearing_organization, auditor, amount_paid, amount_refunded, founder, categories_of_expenses, create_by, create_time, update_by, update_time, remark from cb_expense_detail
+    </sql>
+
+    <select id="selectCbExpenseDetailList" parameterType="CbExpenseDetail" resultMap="CbExpenseDetailResult">
+        <include refid="selectCbExpenseDetailVo"/>
+        <where>
+            <if test="cbYear != null  and cbYear != ''"> and cb_year = #{cbYear}</if>
+            <if test="cbMonth != null  and cbMonth != ''"> and cb_month = #{cbMonth}</if>
+            <if test="documentCode != null  and documentCode != ''"> and document_code = #{documentCode}</if>
+            <if test="cause != null  and cause != ''"> and cause = #{cause}</if>
+            <if test="businessDate != null "> and business_date = #{businessDate}</if>
+            <if test="petitioner != null  and petitioner != ''"> and petitioner = #{petitioner}</if>
+            <if test="petitionerDepartmentId != null "> and petitioner_department_id = #{petitionerDepartmentId}</if>
+            <if test="petitionerDepartmentName != null  and petitionerDepartmentName != ''"> and petitioner_department_name like concat('%', #{petitionerDepartmentName}, '%')</if>
+            <if test="petitionerOrganizationId != null "> and petitioner_organization_id = #{petitionerOrganizationId}</if>
+            <if test="petitionerOrganizationName != null  and petitionerOrganizationName != ''"> and petitioner_organization_name like concat('%', #{petitionerOrganizationName}, '%')</if>
+            <if test="typeOfTraffic != null  and typeOfTraffic != ''"> and type_of_traffic = #{typeOfTraffic}</if>
+            <if test="reimburseAmountSummary != null "> and reimburse_amount_summary = #{reimburseAmountSummary}</if>
+            <if test="expenseItem != null  and expenseItem != ''"> and expense_item = #{expenseItem}</if>
+            <if test="tefundOfPaymentCollect != null "> and tefund_of_payment_collect = #{tefundOfPaymentCollect}</if>
+            <if test="documentStatus != null  and documentStatus != ''"> and document_status = #{documentStatus}</if>
+            <if test="costBearingOrganizationId != null "> and cost_bearing_organization_id = #{costBearingOrganizationId}</if>
+            <if test="costBearingOrganization != null  and costBearingOrganization != ''"> and cost_bearing_organization = #{costBearingOrganization}</if>
+            <if test="auditor != null  and auditor != ''"> and auditor = #{auditor}</if>
+            <if test="amountPaid != null "> and amount_paid = #{amountPaid}</if>
+            <if test="amountRefunded != null "> and amount_refunded = #{amountRefunded}</if>
+            <if test="founder != null  and founder != ''"> and founder = #{founder}</if>
+            <if test="categoriesOfExpenses != null  and categoriesOfExpenses != ''"> and categories_of_expenses = #{categoriesOfExpenses}</if>
+        </where>
+    </select>
+
+    <select id="selectCbExpenseDetailById" parameterType="Long" resultMap="CbExpenseDetailResult">
+        <include refid="selectCbExpenseDetailVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCbExpenseDetail" parameterType="CbExpenseDetail" useGeneratedKeys="true" keyProperty="id">
+        insert into cb_expense_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cbYear != null">cb_year,</if>
+            <if test="cbMonth != null">cb_month,</if>
+            <if test="documentCode != null">document_code,</if>
+            <if test="cause != null">cause,</if>
+            <if test="businessDate != null">business_date,</if>
+            <if test="petitioner != null">petitioner,</if>
+            <if test="petitionerDepartmentId != null">petitioner_department_id,</if>
+            <if test="petitionerDepartmentName != null">petitioner_department_name,</if>
+            <if test="petitionerOrganizationId != null">petitioner_organization_id,</if>
+            <if test="petitionerOrganizationName != null">petitioner_organization_name,</if>
+            <if test="typeOfTraffic != null">type_of_traffic,</if>
+            <if test="reimburseAmountSummary != null">reimburse_amount_summary,</if>
+            <if test="expenseItem != null">expense_item,</if>
+            <if test="tefundOfPaymentCollect != null">tefund_of_payment_collect,</if>
+            <if test="documentStatus != null">document_status,</if>
+            <if test="costBearingOrganizationId != null">cost_bearing_organization_id,</if>
+            <if test="costBearingOrganization != null">cost_bearing_organization,</if>
+            <if test="auditor != null">auditor,</if>
+            <if test="amountPaid != null">amount_paid,</if>
+            <if test="amountRefunded != null">amount_refunded,</if>
+            <if test="founder != null">founder,</if>
+            <if test="categoriesOfExpenses != null">categories_of_expenses,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cbYear != null">#{cbYear},</if>
+            <if test="cbMonth != null">#{cbMonth},</if>
+            <if test="documentCode != null">#{documentCode},</if>
+            <if test="cause != null">#{cause},</if>
+            <if test="businessDate != null">#{businessDate},</if>
+            <if test="petitioner != null">#{petitioner},</if>
+            <if test="petitionerDepartmentId != null">#{petitionerDepartmentId},</if>
+            <if test="petitionerDepartmentName != null">#{petitionerDepartmentName},</if>
+            <if test="petitionerOrganizationId != null">#{petitionerOrganizationId},</if>
+            <if test="petitionerOrganizationName != null">#{petitionerOrganizationName},</if>
+            <if test="typeOfTraffic != null">#{typeOfTraffic},</if>
+            <if test="reimburseAmountSummary != null">#{reimburseAmountSummary},</if>
+            <if test="expenseItem != null">#{expenseItem},</if>
+            <if test="tefundOfPaymentCollect != null">#{tefundOfPaymentCollect},</if>
+            <if test="documentStatus != null">#{documentStatus},</if>
+            <if test="costBearingOrganizationId != null">#{costBearingOrganizationId},</if>
+            <if test="costBearingOrganization != null">#{costBearingOrganization},</if>
+            <if test="auditor != null">#{auditor},</if>
+            <if test="amountPaid != null">#{amountPaid},</if>
+            <if test="amountRefunded != null">#{amountRefunded},</if>
+            <if test="founder != null">#{founder},</if>
+            <if test="categoriesOfExpenses != null">#{categoriesOfExpenses},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCbExpenseDetail" parameterType="CbExpenseDetail">
+        update cb_expense_detail
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cbYear != null">cb_year = #{cbYear},</if>
+            <if test="cbMonth != null">cb_month = #{cbMonth},</if>
+            <if test="documentCode != null">document_code = #{documentCode},</if>
+            <if test="cause != null">cause = #{cause},</if>
+            <if test="businessDate != null">business_date = #{businessDate},</if>
+            <if test="petitioner != null">petitioner = #{petitioner},</if>
+            <if test="petitionerDepartmentId != null">petitioner_department_id = #{petitionerDepartmentId},</if>
+            <if test="petitionerDepartmentName != null">petitioner_department_name = #{petitionerDepartmentName},</if>
+            <if test="petitionerOrganizationId != null">petitioner_organization_id = #{petitionerOrganizationId},</if>
+            <if test="petitionerOrganizationName != null">petitioner_organization_name = #{petitionerOrganizationName},</if>
+            <if test="typeOfTraffic != null">type_of_traffic = #{typeOfTraffic},</if>
+            <if test="reimburseAmountSummary != null">reimburse_amount_summary = #{reimburseAmountSummary},</if>
+            <if test="expenseItem != null">expense_item = #{expenseItem},</if>
+            <if test="tefundOfPaymentCollect != null">tefund_of_payment_collect = #{tefundOfPaymentCollect},</if>
+            <if test="documentStatus != null">document_status = #{documentStatus},</if>
+            <if test="costBearingOrganizationId != null">cost_bearing_organization_id = #{costBearingOrganizationId},</if>
+            <if test="costBearingOrganization != null">cost_bearing_organization = #{costBearingOrganization},</if>
+            <if test="auditor != null">auditor = #{auditor},</if>
+            <if test="amountPaid != null">amount_paid = #{amountPaid},</if>
+            <if test="amountRefunded != null">amount_refunded = #{amountRefunded},</if>
+            <if test="founder != null">founder = #{founder},</if>
+            <if test="categoriesOfExpenses != null">categories_of_expenses = #{categoriesOfExpenses},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCbExpenseDetailById" parameterType="Long">
+        delete from cb_expense_detail where id = #{id}
+    </delete>
+
+    <delete id="deleteCbExpenseDetailByIds" parameterType="String">
+        delete from cb_expense_detail where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

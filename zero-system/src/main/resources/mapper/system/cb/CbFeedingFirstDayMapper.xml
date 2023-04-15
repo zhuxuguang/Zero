@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.system.cb.mapper.CbFeedingFirstDayMapper">
+    
+    <resultMap type="CbFeedingFirstDay" id="CbFeedingFirstDayResult">
+        <result property="id"    column="id"    />
+        <result property="cbYear"    column="cb_year"    />
+        <result property="cbMonth"    column="cb_month"    />
+        <result property="businessDay"    column="business_day"    />
+        <result property="replacementGilt"    column="replacement_gilt"    />
+        <result property="lactatingSow"    column="lactating_sow"    />
+        <result property="emptySow"    column="empty_sow"    />
+        <result property="breedingSow"    column="breeding_sow"    />
+        <result property="sowInHerd"    column="sow_in_herd"    />
+        <result property="pregnantSow"    column="pregnant_sow"    />
+        <result property="hoggeryId"    column="hoggery_id"    />
+        <result property="hoggeryName"    column="hoggery_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCbFeedingFirstDayVo">
+        select id, cb_year, cb_month, business_day, replacement_gilt, lactating_sow, empty_sow, breeding_sow, sow_in_herd, pregnant_sow, hoggery_id, hoggery_name, create_by, create_time, update_by, update_time, remark from cb_feeding_first_day
+    </sql>
+
+    <select id="selectCbFeedingFirstDayList" parameterType="CbFeedingFirstDay" resultMap="CbFeedingFirstDayResult">
+        <include refid="selectCbFeedingFirstDayVo"/>
+        <where>  
+            <if test="cbYear != null  and cbYear != ''"> and cb_year = #{cbYear}</if>
+            <if test="cbMonth != null  and cbMonth != ''"> and cb_month = #{cbMonth}</if>
+            <if test="businessDay != null "> and business_day = #{businessDay}</if>
+            <if test="replacementGilt != null "> and replacement_gilt = #{replacementGilt}</if>
+            <if test="lactatingSow != null "> and lactating_sow = #{lactatingSow}</if>
+            <if test="emptySow != null "> and empty_sow = #{emptySow}</if>
+            <if test="breedingSow != null "> and breeding_sow = #{breedingSow}</if>
+            <if test="sowInHerd != null "> and sow_in_herd = #{sowInHerd}</if>
+            <if test="pregnantSow != null "> and pregnant_sow = #{pregnantSow}</if>
+            <if test="hoggeryId != null "> and hoggery_id = #{hoggeryId}</if>
+            <if test="hoggeryName != null  and hoggeryName != ''"> and hoggery_name like concat('%', #{hoggeryName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectCbFeedingFirstDayById" parameterType="Long" resultMap="CbFeedingFirstDayResult">
+        <include refid="selectCbFeedingFirstDayVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCbFeedingFirstDay" parameterType="CbFeedingFirstDay" useGeneratedKeys="true" keyProperty="id">
+        insert into cb_feeding_first_day
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cbYear != null">cb_year,</if>
+            <if test="cbMonth != null">cb_month,</if>
+            <if test="businessDay != null">business_day,</if>
+            <if test="replacementGilt != null">replacement_gilt,</if>
+            <if test="lactatingSow != null">lactating_sow,</if>
+            <if test="emptySow != null">empty_sow,</if>
+            <if test="breedingSow != null">breeding_sow,</if>
+            <if test="sowInHerd != null">sow_in_herd,</if>
+            <if test="pregnantSow != null">pregnant_sow,</if>
+            <if test="hoggeryId != null">hoggery_id,</if>
+            <if test="hoggeryName != null">hoggery_name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cbYear != null">#{cbYear},</if>
+            <if test="cbMonth != null">#{cbMonth},</if>
+            <if test="businessDay != null">#{businessDay},</if>
+            <if test="replacementGilt != null">#{replacementGilt},</if>
+            <if test="lactatingSow != null">#{lactatingSow},</if>
+            <if test="emptySow != null">#{emptySow},</if>
+            <if test="breedingSow != null">#{breedingSow},</if>
+            <if test="sowInHerd != null">#{sowInHerd},</if>
+            <if test="pregnantSow != null">#{pregnantSow},</if>
+            <if test="hoggeryId != null">#{hoggeryId},</if>
+            <if test="hoggeryName != null">#{hoggeryName},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCbFeedingFirstDay" parameterType="CbFeedingFirstDay">
+        update cb_feeding_first_day
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cbYear != null">cb_year = #{cbYear},</if>
+            <if test="cbMonth != null">cb_month = #{cbMonth},</if>
+            <if test="businessDay != null">business_day = #{businessDay},</if>
+            <if test="replacementGilt != null">replacement_gilt = #{replacementGilt},</if>
+            <if test="lactatingSow != null">lactating_sow = #{lactatingSow},</if>
+            <if test="emptySow != null">empty_sow = #{emptySow},</if>
+            <if test="breedingSow != null">breeding_sow = #{breedingSow},</if>
+            <if test="sowInHerd != null">sow_in_herd = #{sowInHerd},</if>
+            <if test="pregnantSow != null">pregnant_sow = #{pregnantSow},</if>
+            <if test="hoggeryId != null">hoggery_id = #{hoggeryId},</if>
+            <if test="hoggeryName != null">hoggery_name = #{hoggeryName},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCbFeedingFirstDayById" parameterType="Long">
+        delete from cb_feeding_first_day where id = #{id}
+    </delete>
+
+    <delete id="deleteCbFeedingFirstDayByIds" parameterType="String">
+        delete from cb_feeding_first_day where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

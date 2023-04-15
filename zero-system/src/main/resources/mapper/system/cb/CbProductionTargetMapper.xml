@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.system.cb.mapper.CbProductionTargetMapper">
+
+    <resultMap type="CbProductionTarget" id="CbProductionTargetResult">
+        <result property="id"    column="id"    />
+        <result property="fieldId"    column="field_id"    />
+        <result property="fieldName"    column="field_name"    />
+        <result property="cbYear"    column="cb_year"    />
+        <result property="cbMonth"    column="cb_month"    />
+        <result property="businessDate"    column="business_date"    />
+        <result property="productionIndex"    column="production_index"    />
+        <result property="budget"    column="budget"    />
+        <result property="budgetAccumulative"    column="budget_accumulative"    />
+        <result property="practical"    column="practical"    />
+        <result property="finishingRate"    column="finishing_rate"    />
+        <result property="actualAccumulation"    column="actual_accumulation"    />
+        <result property="cumulativeCompletionRate"    column="cumulative_completion_rate"    />
+        <result property="yearCompletionRate"    column="year_completion_rate"    />
+        <result property="yearTargetVariance"    column="year_target_variance"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <association property="dept"    column="dept_id" javaType="SysDept" resultMap="deptResult" />
+    </resultMap>
+
+    <resultMap id="deptResult" type="SysDept">
+        <id     property="deptId"    column="dept_id"     />
+        <result property="parentId"  column="parent_id"   />
+        <result property="deptName"  column="dept_name"   />
+        <result property="ancestors" column="ancestors"   />
+        <result property="orderNum"  column="order_num"   />
+        <result property="leader"    column="leader"      />
+        <result property="status"    column="dept_status" />
+    </resultMap>
+
+    <sql id="selectCbProductionTargetVo">
+        select id, field_id, field_name, cb_year, cb_month, business_date, production_index, budget, budget_accumulative, practical, finishing_rate, actual_accumulation, cumulative_completion_rate, year_completion_rate, year_target_variance, create_by, create_time, update_by, update_time, remark from cb_production_target
+    </sql>
+
+    <select id="selectCbProductionTargetList" parameterType="CbProductionTarget" resultMap="CbProductionTargetResult">
+        SELECT
+        t1.id,
+        t1.field_id,
+        t1.field_name,
+        t1.cb_year,
+        t1.cb_month,
+        t1.business_date,
+        t1.production_index,
+        t1.budget,
+        t1.budget_accumulative,
+        t1.practical,
+        t1.finishing_rate,
+        t1.actual_accumulation,
+        t1.cumulative_completion_rate,
+        t1.year_completion_rate,
+        t1.year_target_variance,
+        t1.create_by,
+        t1.create_time,
+        t1.update_by,
+        t1.update_time,
+        t1.remark
+        FROM
+        cb_production_target t1
+        <where>
+            <if test="fieldId != null  and fieldId != ''"> and t1.field_id = #{fieldId}</if>
+            <if test="fieldName != null  and fieldName != ''"> and t1.field_name like concat('%', #{fieldName}, '%')</if>
+            <if test="cbYear != null  and cbYear != ''"> and t1.cb_year = #{cbYear}</if>
+            <if test="cbMonth != null  and cbMonth != ''"> and t1.cb_month = #{cbMonth}</if>
+            <if test="businessDate != null "> and t1.business_date = #{businessDate}</if>
+            <if test="productionIndex != null  and productionIndex != ''"> and t1.production_index = #{productionIndex}</if>
+            <if test="budget != null "> and t1.budget = #{budget}</if>
+            <if test="budgetAccumulative != null "> and t1.budget_accumulative = #{budgetAccumulative}</if>
+            <if test="practical != null "> and t1.practical = #{practical}</if>
+            <if test="finishingRate != null "> and t1.finishing_rate = #{finishingRate}</if>
+            <if test="actualAccumulation != null "> and t1.actual_accumulation = #{actualAccumulation}</if>
+            <if test="cumulativeCompletionRate != null "> and t1.cumulative_completion_rate = #{cumulativeCompletionRate}</if>
+            <if test="yearCompletionRate != null "> and t1.year_completion_rate = #{yearCompletionRate}</if>
+            <if test="yearTargetVariance != null "> and t1.year_target_variance = #{yearTargetVariance}</if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectCbProductionTargetById" parameterType="Long" resultMap="CbProductionTargetResult">
+        <include refid="selectCbProductionTargetVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCbProductionTarget" parameterType="CbProductionTarget">
+        insert into cb_production_target
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="fieldId != null">field_id,</if>
+            <if test="fieldName != null">field_name,</if>
+            <if test="cbYear != null">cb_year,</if>
+            <if test="cbMonth != null">cb_month,</if>
+            <if test="businessDate != null">business_date,</if>
+            <if test="productionIndex != null">production_index,</if>
+            <if test="budget != null">budget,</if>
+            <if test="budgetAccumulative != null">budget_accumulative,</if>
+            <if test="practical != null">practical,</if>
+            <if test="finishingRate != null">finishing_rate,</if>
+            <if test="actualAccumulation != null">actual_accumulation,</if>
+            <if test="cumulativeCompletionRate != null">cumulative_completion_rate,</if>
+            <if test="yearCompletionRate != null">year_completion_rate,</if>
+            <if test="yearTargetVariance != null">year_target_variance,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="fieldId != null">#{fieldId},</if>
+            <if test="fieldName != null">#{fieldName},</if>
+            <if test="cbYear != null">#{cbYear},</if>
+            <if test="cbMonth != null">#{cbMonth},</if>
+            <if test="businessDate != null">#{businessDate},</if>
+            <if test="productionIndex != null">#{productionIndex},</if>
+            <if test="budget != null">#{budget},</if>
+            <if test="budgetAccumulative != null">#{budgetAccumulative},</if>
+            <if test="practical != null">#{practical},</if>
+            <if test="finishingRate != null">#{finishingRate},</if>
+            <if test="actualAccumulation != null">#{actualAccumulation},</if>
+            <if test="cumulativeCompletionRate != null">#{cumulativeCompletionRate},</if>
+            <if test="yearCompletionRate != null">#{yearCompletionRate},</if>
+            <if test="yearTargetVariance != null">#{yearTargetVariance},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCbProductionTarget" parameterType="CbProductionTarget">
+        update cb_production_target
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fieldId != null">field_id = #{fieldId},</if>
+            <if test="fieldName != null">field_name = #{fieldName},</if>
+            <if test="cbYear != null">cb_year = #{cbYear},</if>
+            <if test="cbMonth != null">cb_month = #{cbMonth},</if>
+            <if test="businessDate != null">business_date = #{businessDate},</if>
+            <if test="productionIndex != null">production_index = #{productionIndex},</if>
+            <if test="budget != null">budget = #{budget},</if>
+            <if test="budgetAccumulative != null">budget_accumulative = #{budgetAccumulative},</if>
+            <if test="practical != null">practical = #{practical},</if>
+            <if test="finishingRate != null">finishing_rate = #{finishingRate},</if>
+            <if test="actualAccumulation != null">actual_accumulation = #{actualAccumulation},</if>
+            <if test="cumulativeCompletionRate != null">cumulative_completion_rate = #{cumulativeCompletionRate},</if>
+            <if test="yearCompletionRate != null">year_completion_rate = #{yearCompletionRate},</if>
+            <if test="yearTargetVariance != null">year_target_variance = #{yearTargetVariance},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCbProductionTargetById" parameterType="Long">
+        delete from cb_production_target where id = #{id}
+    </delete>
+
+    <delete id="deleteCbProductionTargetByIds" parameterType="String">
+        delete from cb_production_target where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

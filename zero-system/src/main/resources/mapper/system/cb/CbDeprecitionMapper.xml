@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.system.cb.mapper.CbDeprecitionMapper">
+    
+    <resultMap type="CbDeprecition" id="CbDeprecitionResult">
+        <result property="id"    column="id"    />
+        <result property="shipperOrganizationId"    column="shipper_organization_id"    />
+        <result property="fieldName"    column="field_name"    />
+        <result property="cbYear"    column="cb_year"    />
+        <result property="cbMonth"    column="cb_month"    />
+        <result property="documentCode"    column="document_code"    />
+        <result property="businessDate"    column="business_date"    />
+        <result property="userDepartmentId"    column="user_department_id"    />
+        <result property="userDepartment"    column="user_department"    />
+        <result property="propertyStatus"    column="property_status"    />
+        <result property="propertyPlace"    column="property_place"    />
+        <result property="modeOfChange"    column="mode_of_change"    />
+        <result property="cardCoding"    column="card_coding"    />
+        <result property="assetName"    column="asset_name"    />
+        <result property="assetAmount"    column="asset_amount"    />
+        <result property="beginUseDate"    column="begin_use_date"    />
+        <result property="entryDate"    column="entry_date"    />
+        <result property="useLifetime"    column="use_lifetime"    />
+        <result property="usedLifetime"    column="used_lifetime"    />
+        <result property="monthlyDepreciationRate"    column="monthly_depreciation_rate"    />
+        <result property="initialValue"    column="initial_value"    />
+        <result property="qcAggregateDeprecition"    column="qc_aggregate_deprecition"    />
+        <result property="qcNetValue"    column="qc_net_value"    />
+        <result property="qcDepreciReserves"    column="qc_depreci_reserves"    />
+        <result property="qcRecoverableNet"    column="qc_recoverable_net"    />
+        <result property="cgBqzje"    column="cg_bqzje"    />
+        <result property="cgBnljzje"    column="cg_bnljzje"    />
+        <result property="qmQmyz"    column="qm_qmyz"    />
+        <result property="qmQmljzj"    column="qm_qmljzj"    />
+        <result property="qmQmjz"    column="qm_qmjz"    />
+        <result property="qmQmjzzb"    column="qm_qmjzzb"    />
+        <result property="qmQmkhsje"    column="qm_qmkhsje"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCbDeprecitionVo">
+        select id, shipper_organization_id, field_name, cb_year, cb_month, document_code, business_date, user_department_id, user_department, property_status, property_place, mode_of_change, card_coding, asset_name, asset_amount, begin_use_date, entry_date, use_lifetime, used_lifetime, monthly_depreciation_rate, initial_value, qc_aggregate_deprecition, qc_net_value, qc_depreci_reserves, qc_recoverable_net, cg_bqzje, cg_bnljzje, qm_qmyz, qm_qmljzj, qm_qmjz, qm_qmjzzb, qm_qmkhsje, create_by, create_time, update_by, update_time, remark from cb_deprecition
+    </sql>
+
+    <select id="selectCbDeprecitionList" parameterType="CbDeprecition" resultMap="CbDeprecitionResult">
+        <include refid="selectCbDeprecitionVo"/>
+        <where>  
+            <if test="shipperOrganizationId != null "> and shipper_organization_id = #{shipperOrganizationId}</if>
+            <if test="fieldName != null  and fieldName != ''"> and field_name like concat('%', #{fieldName}, '%')</if>
+            <if test="cbYear != null  and cbYear != ''"> and cb_year = #{cbYear}</if>
+            <if test="cbMonth != null  and cbMonth != ''"> and cb_month = #{cbMonth}</if>
+            <if test="documentCode != null  and documentCode != ''"> and document_code = #{documentCode}</if>
+            <if test="businessDate != null "> and business_date = #{businessDate}</if>
+            <if test="userDepartmentId != null "> and user_department_id = #{userDepartmentId}</if>
+            <if test="userDepartment != null  and userDepartment != ''"> and user_department = #{userDepartment}</if>
+            <if test="propertyStatus != null  and propertyStatus != ''"> and property_status = #{propertyStatus}</if>
+            <if test="propertyPlace != null  and propertyPlace != ''"> and property_place = #{propertyPlace}</if>
+            <if test="modeOfChange != null  and modeOfChange != ''"> and mode_of_change = #{modeOfChange}</if>
+            <if test="cardCoding != null  and cardCoding != ''"> and card_coding = #{cardCoding}</if>
+            <if test="assetName != null  and assetName != ''"> and asset_name like concat('%', #{assetName}, '%')</if>
+            <if test="assetAmount != null "> and asset_amount = #{assetAmount}</if>
+            <if test="beginUseDate != null "> and begin_use_date = #{beginUseDate}</if>
+            <if test="entryDate != null "> and entry_date = #{entryDate}</if>
+            <if test="useLifetime != null "> and use_lifetime = #{useLifetime}</if>
+            <if test="usedLifetime != null "> and used_lifetime = #{usedLifetime}</if>
+            <if test="monthlyDepreciationRate != null "> and monthly_depreciation_rate = #{monthlyDepreciationRate}</if>
+            <if test="initialValue != null "> and initial_value = #{initialValue}</if>
+            <if test="qcAggregateDeprecition != null "> and qc_aggregate_deprecition = #{qcAggregateDeprecition}</if>
+            <if test="qcNetValue != null "> and qc_net_value = #{qcNetValue}</if>
+            <if test="qcDepreciReserves != null "> and qc_depreci_reserves = #{qcDepreciReserves}</if>
+            <if test="qcRecoverableNet != null "> and qc_recoverable_net = #{qcRecoverableNet}</if>
+            <if test="cgBqzje != null "> and cg_bqzje = #{cgBqzje}</if>
+            <if test="cgBnljzje != null "> and cg_bnljzje = #{cgBnljzje}</if>
+            <if test="qmQmyz != null "> and qm_qmyz = #{qmQmyz}</if>
+            <if test="qmQmljzj != null "> and qm_qmljzj = #{qmQmljzj}</if>
+            <if test="qmQmjz != null "> and qm_qmjz = #{qmQmjz}</if>
+            <if test="qmQmjzzb != null "> and qm_qmjzzb = #{qmQmjzzb}</if>
+            <if test="qmQmkhsje != null "> and qm_qmkhsje = #{qmQmkhsje}</if>
+        </where>
+    </select>
+    
+    <select id="selectCbDeprecitionById" parameterType="Long" resultMap="CbDeprecitionResult">
+        <include refid="selectCbDeprecitionVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCbDeprecition" parameterType="CbDeprecition" useGeneratedKeys="true" keyProperty="id">
+        insert into cb_deprecition
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shipperOrganizationId != null">shipper_organization_id,</if>
+            <if test="fieldName != null">field_name,</if>
+            <if test="cbYear != null">cb_year,</if>
+            <if test="cbMonth != null">cb_month,</if>
+            <if test="documentCode != null">document_code,</if>
+            <if test="businessDate != null">business_date,</if>
+            <if test="userDepartmentId != null">user_department_id,</if>
+            <if test="userDepartment != null">user_department,</if>
+            <if test="propertyStatus != null">property_status,</if>
+            <if test="propertyPlace != null">property_place,</if>
+            <if test="modeOfChange != null">mode_of_change,</if>
+            <if test="cardCoding != null">card_coding,</if>
+            <if test="assetName != null">asset_name,</if>
+            <if test="assetAmount != null">asset_amount,</if>
+            <if test="beginUseDate != null">begin_use_date,</if>
+            <if test="entryDate != null">entry_date,</if>
+            <if test="useLifetime != null">use_lifetime,</if>
+            <if test="usedLifetime != null">used_lifetime,</if>
+            <if test="monthlyDepreciationRate != null">monthly_depreciation_rate,</if>
+            <if test="initialValue != null">initial_value,</if>
+            <if test="qcAggregateDeprecition != null">qc_aggregate_deprecition,</if>
+            <if test="qcNetValue != null">qc_net_value,</if>
+            <if test="qcDepreciReserves != null">qc_depreci_reserves,</if>
+            <if test="qcRecoverableNet != null">qc_recoverable_net,</if>
+            <if test="cgBqzje != null">cg_bqzje,</if>
+            <if test="cgBnljzje != null">cg_bnljzje,</if>
+            <if test="qmQmyz != null">qm_qmyz,</if>
+            <if test="qmQmljzj != null">qm_qmljzj,</if>
+            <if test="qmQmjz != null">qm_qmjz,</if>
+            <if test="qmQmjzzb != null">qm_qmjzzb,</if>
+            <if test="qmQmkhsje != null">qm_qmkhsje,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shipperOrganizationId != null">#{shipperOrganizationId},</if>
+            <if test="fieldName != null">#{fieldName},</if>
+            <if test="cbYear != null">#{cbYear},</if>
+            <if test="cbMonth != null">#{cbMonth},</if>
+            <if test="documentCode != null">#{documentCode},</if>
+            <if test="businessDate != null">#{businessDate},</if>
+            <if test="userDepartmentId != null">#{userDepartmentId},</if>
+            <if test="userDepartment != null">#{userDepartment},</if>
+            <if test="propertyStatus != null">#{propertyStatus},</if>
+            <if test="propertyPlace != null">#{propertyPlace},</if>
+            <if test="modeOfChange != null">#{modeOfChange},</if>
+            <if test="cardCoding != null">#{cardCoding},</if>
+            <if test="assetName != null">#{assetName},</if>
+            <if test="assetAmount != null">#{assetAmount},</if>
+            <if test="beginUseDate != null">#{beginUseDate},</if>
+            <if test="entryDate != null">#{entryDate},</if>
+            <if test="useLifetime != null">#{useLifetime},</if>
+            <if test="usedLifetime != null">#{usedLifetime},</if>
+            <if test="monthlyDepreciationRate != null">#{monthlyDepreciationRate},</if>
+            <if test="initialValue != null">#{initialValue},</if>
+            <if test="qcAggregateDeprecition != null">#{qcAggregateDeprecition},</if>
+            <if test="qcNetValue != null">#{qcNetValue},</if>
+            <if test="qcDepreciReserves != null">#{qcDepreciReserves},</if>
+            <if test="qcRecoverableNet != null">#{qcRecoverableNet},</if>
+            <if test="cgBqzje != null">#{cgBqzje},</if>
+            <if test="cgBnljzje != null">#{cgBnljzje},</if>
+            <if test="qmQmyz != null">#{qmQmyz},</if>
+            <if test="qmQmljzj != null">#{qmQmljzj},</if>
+            <if test="qmQmjz != null">#{qmQmjz},</if>
+            <if test="qmQmjzzb != null">#{qmQmjzzb},</if>
+            <if test="qmQmkhsje != null">#{qmQmkhsje},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCbDeprecition" parameterType="CbDeprecition">
+        update cb_deprecition
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="shipperOrganizationId != null">shipper_organization_id = #{shipperOrganizationId},</if>
+            <if test="fieldName != null">field_name = #{fieldName},</if>
+            <if test="cbYear != null">cb_year = #{cbYear},</if>
+            <if test="cbMonth != null">cb_month = #{cbMonth},</if>
+            <if test="documentCode != null">document_code = #{documentCode},</if>
+            <if test="businessDate != null">business_date = #{businessDate},</if>
+            <if test="userDepartmentId != null">user_department_id = #{userDepartmentId},</if>
+            <if test="userDepartment != null">user_department = #{userDepartment},</if>
+            <if test="propertyStatus != null">property_status = #{propertyStatus},</if>
+            <if test="propertyPlace != null">property_place = #{propertyPlace},</if>
+            <if test="modeOfChange != null">mode_of_change = #{modeOfChange},</if>
+            <if test="cardCoding != null">card_coding = #{cardCoding},</if>
+            <if test="assetName != null">asset_name = #{assetName},</if>
+            <if test="assetAmount != null">asset_amount = #{assetAmount},</if>
+            <if test="beginUseDate != null">begin_use_date = #{beginUseDate},</if>
+            <if test="entryDate != null">entry_date = #{entryDate},</if>
+            <if test="useLifetime != null">use_lifetime = #{useLifetime},</if>
+            <if test="usedLifetime != null">used_lifetime = #{usedLifetime},</if>
+            <if test="monthlyDepreciationRate != null">monthly_depreciation_rate = #{monthlyDepreciationRate},</if>
+            <if test="initialValue != null">initial_value = #{initialValue},</if>
+            <if test="qcAggregateDeprecition != null">qc_aggregate_deprecition = #{qcAggregateDeprecition},</if>
+            <if test="qcNetValue != null">qc_net_value = #{qcNetValue},</if>
+            <if test="qcDepreciReserves != null">qc_depreci_reserves = #{qcDepreciReserves},</if>
+            <if test="qcRecoverableNet != null">qc_recoverable_net = #{qcRecoverableNet},</if>
+            <if test="cgBqzje != null">cg_bqzje = #{cgBqzje},</if>
+            <if test="cgBnljzje != null">cg_bnljzje = #{cgBnljzje},</if>
+            <if test="qmQmyz != null">qm_qmyz = #{qmQmyz},</if>
+            <if test="qmQmljzj != null">qm_qmljzj = #{qmQmljzj},</if>
+            <if test="qmQmjz != null">qm_qmjz = #{qmQmjz},</if>
+            <if test="qmQmjzzb != null">qm_qmjzzb = #{qmQmjzzb},</if>
+            <if test="qmQmkhsje != null">qm_qmkhsje = #{qmQmkhsje},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCbDeprecitionById" parameterType="Long">
+        delete from cb_deprecition where id = #{id}
+    </delete>
+
+    <delete id="deleteCbDeprecitionByIds" parameterType="String">
+        delete from cb_deprecition where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

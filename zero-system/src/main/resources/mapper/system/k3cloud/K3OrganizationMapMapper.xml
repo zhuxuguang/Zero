@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.system.k3cloud.k3Organization.mapper.K3OrganizationMapMapper">
+    
+    <resultMap type="K3OrganizationMap" id="K3OrganizationMapResult">
+        <result property="id"    column="id"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="deptName"  column="dept_name"   />
+        <result property="k3Forgid"    column="k3_forgid"    />
+        <result property="fname"    column="fname"    />
+        <result property="k3Fnumber"    column="k3_fnumber"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+
+    <resultMap type="K3Organization" id="K3OrganizationResult">
+        <result property="id"    column="id"    />
+        <result property="forgid"    column="forgid"    />
+        <result property="fnumber"    column="fnumber"    />
+        <result property="fname"    column="fname"    />
+        <result property="fforbidStatus"    column="fforbid_status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <resultMap id="deptResult" type="SysDept">
+        <id     property="deptId"    column="dept_id"     />
+        <result property="parentId"  column="parent_id"   />
+        <result property="deptName"  column="dept_name"   />
+        <result property="ancestors" column="ancestors"   />
+        <result property="orderNum"  column="order_num"   />
+        <result property="leader"    column="leader"      />
+        <result property="status"    column="dept_status" />
+    </resultMap>
+
+    <sql id="selectK3OrganizationMapVo">
+        select id, dept_id, k3_forgid, k3_fnumber, create_by, create_time, update_by, update_time, remark from k3_organization_map
+    </sql>
+
+    <select id="selectK3OrganizationMapList" parameterType="K3OrganizationMap" resultMap="K3OrganizationMapResult">
+        SELECT
+        t1.id,
+        t1.dept_id,
+        t2.dept_name,
+        t1.k3_forgid,
+        t3.fnumber AS k3_fnumber,
+        t3.fname,
+        t1.create_by,
+        t1.create_time,
+        t1.update_by,
+        t1.update_time,
+        t1.remark
+        FROM
+        k3_organization_map t1
+        LEFT JOIN sys_dept AS t2 ON t1.dept_id = t2.dept_id
+        LEFT JOIN k3_organization AS t3 ON t1.k3_forgid = t3.forgid
+        <where>  
+            <if test="deptId != null  and deptId != ''"> and t1.dept_id = #{deptId}</if>
+            <if test="k3Forgid != null  and k3Forgid != ''"> and t1.k3_forgid = #{k3Forgid}</if>
+            <if test="k3Fnumber != null  and k3Fnumber != ''"> and t1.k3_fnumber = #{k3Fnumber}</if>
+        </where>
+    </select>
+    
+    <select id="selectK3OrganizationMapById" parameterType="Long" resultMap="K3OrganizationMapResult">
+        <include refid="selectK3OrganizationMapVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectK3OrganizationMapAll"  parameterType="K3OrganizationMap" resultMap="K3OrganizationMapResult">
+        SELECT
+            t1.id,
+            t1.dept_id,
+            t2.dept_name,
+            t1.k3_forgid,
+            t3.fnumber AS k3_fnumber,
+            t3.fname
+        FROM
+            k3_organization_map t1
+            LEFT JOIN sys_dept AS t2 ON t1.dept_id = t2.dept_id
+            LEFT JOIN k3_organization AS t3 ON t1.k3_forgid = t3.forgid
+    </select>
+
+    <select id="selectK3OMByk3Forgid" parameterType="String" resultMap="K3OrganizationMapResult">
+        SELECT
+            t1.id,
+            t1.dept_id,
+            t2.dept_name,
+            t1.k3_forgid,
+            t3.fnumber AS k3_fnumber,
+            t3.fname
+        FROM
+            k3_organization_map t1
+            LEFT JOIN sys_dept AS t2 ON t1.dept_id = t2.dept_id
+            LEFT JOIN k3_organization AS t3 ON t1.k3_forgid = t3.forgid
+        where t1.k3_forgid = #{k3Forgid}
+    </select>
+
+    <insert id="insertK3OrganizationMap" parameterType="K3OrganizationMap" useGeneratedKeys="true" keyProperty="id">
+        insert into k3_organization_map
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="deptId != null">dept_id,</if>
+            <if test="k3Forgid != null">k3_forgid,</if>
+            <if test="k3Fnumber != null">k3_fnumber,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="deptId != null">#{deptId},</if>
+            <if test="k3Forgid != null">#{k3Forgid},</if>
+            <if test="k3Fnumber != null">#{k3Fnumber},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateK3OrganizationMap" parameterType="K3OrganizationMap">
+        update k3_organization_map
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="k3Forgid != null">k3_forgid = #{k3Forgid},</if>
+            <if test="k3Fnumber != null">k3_fnumber = #{k3Fnumber},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteK3OrganizationMapById" parameterType="Long">
+        delete from k3_organization_map where id = #{id}
+    </delete>
+
+    <delete id="deleteK3OrganizationMapByIds" parameterType="String">
+        delete from k3_organization_map where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

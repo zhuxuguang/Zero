@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.system.k3cloud.k3Material.mapper.K3BdMaterialbaseMapper">
+    
+    <resultMap type="K3BdMaterialbase" id="K3BdMaterialbaseResult">
+        <result property="id"    column="id"    />
+        <result property="fmaterialId"    column="fmaterial_id"    />
+        <result property="fnumber"    column="fnumber"    />
+        <result property="fname"    column="fname"    />
+        <result property="fcategoryId"    column="fcategory_id"    />
+        <result property="fcategoryName"    column="fcategory_name"    />
+        <result property="fcreateorgId"    column="fcreateorg_id"    />
+        <result property="fcreateorgName"    column="fcreateorg_name"    />
+        <result property="fuseorgId"    column="fuseorg_id"    />
+        <result property="fuseorgName"    column="fuseorg_name"    />
+        <result property="fforbidStatus"    column="fforbid_status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectK3BdMaterialbaseVo">
+        select id, fmaterial_id, fnumber, fname, fcategory_id, fcategory_name, fcreateorg_id, fcreateorg_name, fuseorg_id, fuseorg_name, fforbid_status, create_by, create_time, update_by, update_time, remark from k3_bd_materialbase
+    </sql>
+
+    <select id="selectK3BdMaterialbaseList" parameterType="K3BdMaterialbase" resultMap="K3BdMaterialbaseResult">
+        <include refid="selectK3BdMaterialbaseVo"/>
+        <where>  
+            <if test="fmaterialId != null "> and fmaterial_id = #{fmaterialId}</if>
+            <if test="fnumber != null "> and fnumber = #{fnumber}</if>
+            <if test="fname != null  and fname != ''"> and fname like concat('%', #{fname}, '%')</if>
+            <if test="fcategoryId != null "> and fcategory_id = #{fcategoryId}</if>
+            <if test="fcategoryName != null  and fcategoryName != ''"> and fcategory_name like concat('%', #{fcategoryName}, '%')</if>
+            <if test="fcreateorgId != null "> and fcreateorg_id = #{fcreateorgId}</if>
+            <if test="fcreateorgName != null  and fcreateorgName != ''"> and fcreateorg_name like concat('%', #{fcreateorgName}, '%')</if>
+            <if test="fuseorgId != null "> and fuseorg_id = #{fuseorgId}</if>
+            <if test="fuseorgName != null  and fuseorgName != ''"> and fuseorg_name like concat('%', #{fuseorgName}, '%')</if>
+            <if test="fforbidStatus != null  and fforbidStatus != ''"> and fforbid_status = #{fforbidStatus}</if>
+        </where>
+    </select>
+    
+    <select id="selectK3BdMaterialbaseById" parameterType="Long" resultMap="K3BdMaterialbaseResult">
+        <include refid="selectK3BdMaterialbaseVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectK3BMById" parameterType="Long" resultMap="K3BdMaterialbaseResult">
+        select id, fmaterial_id, fnumber, fname, fcategory_id, fcategory_name, fcreateorg_id, fcreateorg_name, fuseorg_id, fuseorg_name, fforbid_status from k3_bd_materialbase
+        where fmaterial_id = #{fmaterialId}
+    </select>
+
+    <insert id="insertK3BdMaterialbase" parameterType="K3BdMaterialbase" useGeneratedKeys="true" keyProperty="id">
+        insert into k3_bd_materialbase
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fmaterialId != null">fmaterial_id,</if>
+            <if test="fnumber != null">fnumber,</if>
+            <if test="fname != null">fname,</if>
+            <if test="fcategoryId != null">fcategory_id,</if>
+            <if test="fcategoryName != null">fcategory_name,</if>
+            <if test="fcreateorgId != null">fcreateorg_id,</if>
+            <if test="fcreateorgName != null">fcreateorg_name,</if>
+            <if test="fuseorgId != null">fuseorg_id,</if>
+            <if test="fuseorgName != null">fuseorg_name,</if>
+            <if test="fforbidStatus != null">fforbid_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fmaterialId != null">#{fmaterialId},</if>
+            <if test="fnumber != null">#{fnumber},</if>
+            <if test="fname != null">#{fname},</if>
+            <if test="fcategoryId != null">#{fcategoryId},</if>
+            <if test="fcategoryName != null">#{fcategoryName},</if>
+            <if test="fcreateorgId != null">#{fcreateorgId},</if>
+            <if test="fcreateorgName != null">#{fcreateorgName},</if>
+            <if test="fuseorgId != null">#{fuseorgId},</if>
+            <if test="fuseorgName != null">#{fuseorgName},</if>
+            <if test="fforbidStatus != null">#{fforbidStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <insert id="insertK3BdMaterialbaseAll" parameterType="K3BdMaterialbase">
+        insert into k3_bd_materialbase (fmaterial_id, fnumber, fname, fcategory_id, fcategory_name, fcreateorg_id, fcreateorg_name, fuseorg_id, fuseorg_name, fforbid_status, create_by, create_time, update_by, update_time, remark)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.fmaterial_id}, #{item.fnumber}, #{item.fname}, #{item.fcategory_id}, #{item.fcategory_name}, #{item.fcreateorg_id}, #{item.fcreateorg_name}, #{item.fuseorg_id}, #{item.fuseorg_name}, #{item.fforbid_status},
+              #{item.create_by}, #{item.create_time}, #{item.update_by}, #{item.update_time}, #{item.remark})
+        </foreach>
+    </insert>
+
+    <insert id="insertAll" parameterType="K3BdMaterialbase">
+        insert into k3_bd_materialbase (fmaterial_id, fnumber, fname, fcategory_id, fcategory_name, fcreateorg_id, fcreateorg_name, fuseorg_id, fuseorg_name, fforbid_status, create_by, create_time, update_by, update_time, remark)
+        values (#{fmaterialId}, #{fnumber}, #{fname}, #{fcategoryId}, #{fcategoryName}, #{fcreateorgId}, #{fcreateorgName}, #{fuseorgId}, #{fuseorgName}, #{fforbidStatus},
+                #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{remark})
+    </insert>
+
+    <!--批量插入-->
+    <insert id="saveInfo">
+        insert into k3_bd_materialbase (fmaterial_id, fnumber, fname, fcategory_id, fcategory_name, fcreateorg_id, fcreateorg_name, fuseorg_id, fuseorg_name, fforbid_status, create_by, create_time, update_by, update_time, remark)
+        values (#{fmaterialId}, #{fnumber}, #{fname}, #{fcategoryId}, #{fcategoryName}, #{fcreateorgId}, #{fcreateorgName}, #{fuseorgId}, #{fuseorgName}, #{fforbidStatus},
+                #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{remark})
+    </insert>
+
+
+    <update id="updateK3BdMaterialbase" parameterType="K3BdMaterialbase">
+        update k3_bd_materialbase
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fmaterialId != null">fmaterial_id = #{fmaterialId},</if>
+            <if test="fnumber != null">fnumber = #{fnumber},</if>
+            <if test="fname != null">fname = #{fname},</if>
+            <if test="fcategoryId != null">fcategory_id = #{fcategoryId},</if>
+            <if test="fcategoryName != null">fcategory_name = #{fcategoryName},</if>
+            <if test="fcreateorgId != null">fcreateorg_id = #{fcreateorgId},</if>
+            <if test="fcreateorgName != null">fcreateorg_name = #{fcreateorgName},</if>
+            <if test="fuseorgId != null">fuseorg_id = #{fuseorgId},</if>
+            <if test="fuseorgName != null">fuseorg_name = #{fuseorgName},</if>
+            <if test="fforbidStatus != null">fforbid_status = #{fforbidStatus},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteK3BdMaterialbaseById" parameterType="Long">
+        delete from k3_bd_materialbase where id = #{id}
+    </delete>
+
+    <delete id="deleteK3BdMaterialbaseByIds" parameterType="String">
+        delete from k3_bd_materialbase where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="deleteK3BdMaterialbaseAll">
+        delete from k3_bd_materialbase
+    </delete>
+</mapper>

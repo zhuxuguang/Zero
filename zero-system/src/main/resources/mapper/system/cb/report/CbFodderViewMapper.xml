@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.system.cb.report.mapper.CbFodderViewMapper">
+    
+    <resultMap type="CbFodderView" id="CbFodderViewResult">
+        <result property="type"    column="type"    />
+        <result property="project"    column="project"    />
+        <result property="variety"    column="variety"    />
+        <result property="materialCoding"    column="material_coding"    />
+        <result property="cbYear"    column="cb_year"    />
+        <result property="hoggeryId"    column="hoggery_id"    />
+        <result property="avgOrTotal"    column="avg_or_total"    />
+        <result property="jan"    column="jan"    />
+        <result property="february"    column="february"    />
+        <result property="march"    column="march"    />
+        <result property="april"    column="april"    />
+        <result property="may"    column="may"    />
+        <result property="june"    column="june"    />
+        <result property="july"    column="july"    />
+        <result property="august"    column="august"    />
+        <result property="september"    column="september"    />
+        <result property="october"    column="october"    />
+        <result property="november"    column="november"    />
+        <result property="december"    column="december"    />
+    </resultMap>
+
+    <sql id="selectCbFodderViewVo">
+        select type, project, variety, material_coding, cb_year, hoggery_id, avg_or_total, jan, february, march, april, may, june, july, august, september, october, november, december from cb_fodder_view
+    </sql>
+
+    <select id="selectCbFodderViewList" parameterType="CbFodderView" resultMap="CbFodderViewResult">
+        <include refid="selectCbFodderViewVo"/>
+        <where>  
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="project != null  and project != ''"> and project = #{project}</if>
+            <if test="variety != null  and variety != ''"> and variety = #{variety}</if>
+            <if test="materialCoding != null  and materialCoding != ''"> and material_coding = #{materialCoding}</if>
+            <if test="cbYear != null  and cbYear != ''"> and cb_year = #{cbYear}</if>
+            <if test="hoggeryId != null "> and hoggery_id = #{hoggeryId}</if>
+            <if test="avgOrTotal != null "> and avg_or_total = #{avgOrTotal}</if>
+            <if test="jan != null "> and jan = #{jan}</if>
+            <if test="february != null "> and february = #{february}</if>
+            <if test="march != null "> and march = #{march}</if>
+            <if test="april != null "> and april = #{april}</if>
+            <if test="may != null "> and may = #{may}</if>
+            <if test="june != null "> and june = #{june}</if>
+            <if test="july != null "> and july = #{july}</if>
+            <if test="august != null "> and august = #{august}</if>
+            <if test="september != null "> and september = #{september}</if>
+            <if test="october != null "> and october = #{october}</if>
+            <if test="november != null "> and november = #{november}</if>
+            <if test="december != null "> and december = #{december}</if>
+        </where>
+    </select>
+    
+    <select id="selectCbFodderViewByType" parameterType="String" resultMap="CbFodderViewResult">
+        <include refid="selectCbFodderViewVo"/>
+        where type = #{type}
+    </select>
+        
+    <insert id="insertCbFodderView" parameterType="CbFodderView">
+        insert into cb_fodder_view
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="type != null">type,</if>
+            <if test="project != null and project != ''">project,</if>
+            <if test="variety != null">variety,</if>
+            <if test="materialCoding != null">material_coding,</if>
+            <if test="cbYear != null">cb_year,</if>
+            <if test="hoggeryId != null">hoggery_id,</if>
+            <if test="avgOrTotal != null">avg_or_total,</if>
+            <if test="jan != null">jan,</if>
+            <if test="february != null">february,</if>
+            <if test="march != null">march,</if>
+            <if test="april != null">april,</if>
+            <if test="may != null">may,</if>
+            <if test="june != null">june,</if>
+            <if test="july != null">july,</if>
+            <if test="august != null">august,</if>
+            <if test="september != null">september,</if>
+            <if test="october != null">october,</if>
+            <if test="november != null">november,</if>
+            <if test="december != null">december,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="type != null">#{type},</if>
+            <if test="project != null and project != ''">#{project},</if>
+            <if test="variety != null">#{variety},</if>
+            <if test="materialCoding != null">#{materialCoding},</if>
+            <if test="cbYear != null">#{cbYear},</if>
+            <if test="hoggeryId != null">#{hoggeryId},</if>
+            <if test="avgOrTotal != null">#{avgOrTotal},</if>
+            <if test="jan != null">#{jan},</if>
+            <if test="february != null">#{february},</if>
+            <if test="march != null">#{march},</if>
+            <if test="april != null">#{april},</if>
+            <if test="may != null">#{may},</if>
+            <if test="june != null">#{june},</if>
+            <if test="july != null">#{july},</if>
+            <if test="august != null">#{august},</if>
+            <if test="september != null">#{september},</if>
+            <if test="october != null">#{october},</if>
+            <if test="november != null">#{november},</if>
+            <if test="december != null">#{december},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCbFodderView" parameterType="CbFodderView">
+        update cb_fodder_view
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="project != null and project != ''">project = #{project},</if>
+            <if test="variety != null">variety = #{variety},</if>
+            <if test="materialCoding != null">material_coding = #{materialCoding},</if>
+            <if test="cbYear != null">cb_year = #{cbYear},</if>
+            <if test="hoggeryId != null">hoggery_id = #{hoggeryId},</if>
+            <if test="avgOrTotal != null">avg_or_total = #{avgOrTotal},</if>
+            <if test="jan != null">jan = #{jan},</if>
+            <if test="february != null">february = #{february},</if>
+            <if test="march != null">march = #{march},</if>
+            <if test="april != null">april = #{april},</if>
+            <if test="may != null">may = #{may},</if>
+            <if test="june != null">june = #{june},</if>
+            <if test="july != null">july = #{july},</if>
+            <if test="august != null">august = #{august},</if>
+            <if test="september != null">september = #{september},</if>
+            <if test="october != null">october = #{october},</if>
+            <if test="november != null">november = #{november},</if>
+            <if test="december != null">december = #{december},</if>
+        </trim>
+        where type = #{type}
+    </update>
+
+    <delete id="deleteCbFodderViewByType" parameterType="String">
+        delete from cb_fodder_view where type = #{type}
+    </delete>
+
+    <delete id="deleteCbFodderViewByTypes" parameterType="String">
+        delete from cb_fodder_view where type in 
+        <foreach item="type" collection="array" open="(" separator="," close=")">
+            #{type}
+        </foreach>
+    </delete>
+</mapper>
